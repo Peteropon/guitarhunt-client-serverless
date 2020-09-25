@@ -6,6 +6,7 @@ import Login from "./containers/Login";
 import Signup from "./containers/Signup";
 import NewAuction from "./containers/NewAuction";
 import OngoingAuctions from "./containers/OngoingAuctions";
+import EditAuction from "./containers/EditAuction";
 
 export default function Routes() {
   return (
@@ -21,6 +22,9 @@ export default function Routes() {
       </Route>
       <Route exact path="/auctions/new">
         <NewAuction />
+      </Route>
+      <Route exact path="/auctions/:id">
+        <EditAuction />
       </Route>
       <Route exact path="/ongoing">
         <OngoingAuctions />
