@@ -50,6 +50,11 @@ function App() {
             <Navbar.Toggle />
           </Navbar.Header>
           <Navbar.Collapse>
+            <Nav>
+              <LinkContainer to="/ongoing">
+                <NavItem>Ongoing auctions</NavItem>
+              </LinkContainer>
+            </Nav>
             <Nav pullRight>
               {isAuthenticated ? (
                 <NavItem onClick={handleLogout}>Logout</NavItem>

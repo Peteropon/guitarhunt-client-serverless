@@ -4,6 +4,7 @@ import { LinkContainer } from "react-router-bootstrap";
 import { useAppContext } from "../libs/contextLib";
 import { onError } from "../libs/errorLib";
 import { API } from "aws-amplify";
+import Spinner from "../components/Spinner";
 import "./Home.css";
 
 export default function Home() {
@@ -70,7 +71,11 @@ export default function Home() {
     return (
       <div className="auctions">
         <PageHeader>Your auctions</PageHeader>
-        <ListGroup>{!isLoading && renderAuctionsList(auctions)}</ListGroup>
+        {isLoading ? (
+          <Spinner />
+        ) : (
+          <ListGroup>{!isLoading && renderAuctionsList(auctions)}</ListGroup>
+        )}
       </div>
     );
   }

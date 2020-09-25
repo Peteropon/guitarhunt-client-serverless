@@ -5,6 +5,7 @@ import NotFound from "./containers/NotFound";
 import Login from "./containers/Login";
 import Signup from "./containers/Signup";
 import NewAuction from "./containers/NewAuction";
+import OngoingAuctions from "./containers/OngoingAuctions";
 
 export default function Routes() {
   return (
@@ -20,6 +21,9 @@ export default function Routes() {
       </Route>
       <Route exact path="/auctions/new">
         <NewAuction />
+      </Route>
+      <Route exact path="/ongoing">
+        <OngoingAuctions />
       </Route>
       <NotFound />
     </Switch>
