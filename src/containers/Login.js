@@ -4,13 +4,11 @@ import "./Login.css";
 import { Auth } from "aws-amplify";
 import { useAppContext } from "../libs/contextLib";
 import { useFormFields } from "../libs/hooksLib";
-import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 import { onError } from "../libs/errorLib";
 import LoaderButton from "../components/LoaderButton";
 
 export default function Login() {
-  const history = useHistory();
   const { userHasAuthenticated } = useAppContext();
   const [fields, handleFieldChange] = useFormFields({
     email: "",
@@ -30,7 +28,6 @@ export default function Login() {
       userHasAuthenticated(true);
       toast.success("You have successfully logged in");
       setLoading(false);
-      history.push("/");
     } catch (e) {
       onError(e);
       setLoading(false);
