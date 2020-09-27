@@ -5,7 +5,7 @@ import { onError } from "../libs/errorLib";
 import { FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 import LoaderButton from "../components/LoaderButton";
 import config from "../config";
-import { s3Upload } from "../libs/awsLib";
+import { s3Delete, s3Upload } from "../libs/awsLib";
 import "./EditAuction.css";
 import { toast } from "react-toastify";
 
@@ -80,7 +80,6 @@ export default function EditAuction() {
       if (file.current) {
         attachment = await s3Upload(file.current);
       }
-
       await saveAuction({
         ...auction,
         attachment: attachment || auction.attachment,
@@ -91,6 +90,10 @@ export default function EditAuction() {
       onError(e);
       setIsLoading(false);
     }
+  }
+
+  function deleteAuction() {
+    return API.del("auctions", `/auctions/${id}`);
   }
 
   async function handleDelete(event) {
@@ -104,6 +107,16 @@ export default function EditAuction() {
     }
 
     setIsDeleting(true);
+
+    try {
+      await s3Delete(auction.attachment);
+      await deleteAuction();
+      toast.success("Your auction has been successfully deleted");
+      history.push("/");
+    } catch (e) {
+      onError(e);
+      setIsDeleting(false);
+    }
   }
 
   return (
