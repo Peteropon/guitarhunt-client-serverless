@@ -1,6 +1,6 @@
 export default {
   STRIPE_KEY:
-    "sk_test_51HAjXmFeB5e0LAgRHgp7ZzgdqxP0GDvkZ5YWXLycSQAryXFWwwBcKPqIZqWSeHcqu6h9lh3hu6L2xojJ6PS9DWEK00Sq538cEq",
+    "pk_test_51HAjXmFeB5e0LAgRrdZV0ov4i9ALknBOHFxAtQ4wF1JqBpND4NVdrYoi3nPODfuGOnfwsINefjzanwQKUtOFxH9q00EAnIGj3t",
   s3: {
     REGION: "us-east-2",
     BUCKET: "auktionera-2-api-dev-attachmentsbucket-fiopbngskbuh",

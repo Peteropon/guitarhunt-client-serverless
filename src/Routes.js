@@ -7,6 +7,7 @@ import Signup from "./containers/Signup";
 import NewAuction from "./containers/NewAuction";
 import OngoingAuctions from "./containers/OngoingAuctions";
 import EditAuction from "./containers/EditAuction";
+import Settings from "./containers/Settings";
 
 export default function Routes() {
   return (
@@ -28,6 +29,9 @@ export default function Routes() {
       </Route>
       <Route exact path="/ongoing">
         <OngoingAuctions />
+      </Route>
+      <Route exact path="/settings">
+        <Settings />
       </Route>
       <NotFound />
     </Switch>
