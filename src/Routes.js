@@ -8,6 +8,8 @@ import NewAuction from "./containers/NewAuction";
 import OngoingAuctions from "./containers/OngoingAuctions";
 import EditAuction from "./containers/EditAuction";
 import Settings from "./containers/Settings";
+import AuthenticatedRoute from "./components/AuthenticatedRoute";
+import UnauthenticatedRoute from "./components/UnauthenticatedRoute";
 
 export default function Routes() {
   return (
@@ -15,24 +17,24 @@ export default function Routes() {
       <Route exact path="/">
         <Home />
       </Route>
-      <Route exact path="/login">
+      <UnauthenticatedRoute exact path="/login">
         <Login />
-      </Route>
-      <Route exact path="/signup">
+      </UnauthenticatedRoute>
+      <UnauthenticatedRoute exact path="/signup">
         <Signup />
-      </Route>
-      <Route exact path="/auctions/new">
+      </UnauthenticatedRoute>
+      <AuthenticatedRoute exact path="/auctions/new">
         <NewAuction />
-      </Route>
-      <Route exact path="/auctions/:id">
+      </AuthenticatedRoute>
+      <AuthenticatedRoute exact path="/auctions/:id">
         <EditAuction />
-      </Route>
-      <Route exact path="/ongoing">
+      </AuthenticatedRoute>
+      <UnauthenticatedRoute exact path="/ongoing">
         <OngoingAuctions />
-      </Route>
-      <Route exact path="/settings">
+      </UnauthenticatedRoute>
+      <AuthenticatedRoute exact path="/settings">
         <Settings />
-      </Route>
+      </AuthenticatedRoute>
       <NotFound />
     </Switch>
   );

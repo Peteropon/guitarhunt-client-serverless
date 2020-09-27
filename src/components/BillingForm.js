@@ -30,7 +30,7 @@ function BillingForm({ isLoading, onSubmit, ...props }) {
 
     setIsProcessing(false);
 
-    onSubmit(fields.storage, { token, error });
+    onSubmit(parseInt(fields.storage, 10), { token, error });
   }
 
   return (
