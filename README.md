@@ -1,3 +1,6 @@
+This is an auction website (if i ever finish it). It's a continuation of a school project meant to help me learn React and Serverless deployment. I have used this tutorial as a guide https://serverless-stack.com/chapters/who-is-this-guide-for.html. It is using Stripe as a billing service and Netlify for deployment.
+An early version of the website is deployed live at https://hungry-torvalds-62bcd0.netlify.app/. Warning: it's not very pretty yet. 
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
