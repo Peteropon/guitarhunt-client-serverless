@@ -7,6 +7,7 @@ import { AppContext } from "./libs/contextLib";
 import { Auth } from "aws-amplify";
 import { onError } from "./libs/errorLib";
 import { toast, ToastContainer } from "react-toastify";
+import ErrorBoundary from "./components/ErrorBoundary";
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
 
@@ -76,10 +77,14 @@ function App() {
             </Nav>
           </Navbar.Collapse>
         </Navbar>
-        <AppContext.Provider value={{ isAuthenticated, userHasAuthenticated }}>
-          <Routes />
-          <ToastContainer autoClose={2500} hideProgressBar />
-        </AppContext.Provider>{" "}
+        <ErrorBoundary>
+          <AppContext.Provider
+            value={{ isAuthenticated, userHasAuthenticated }}
+          >
+            <Routes />
+            <ToastContainer autoClose={2500} hideProgressBar />
+          </AppContext.Provider>
+        </ErrorBoundary>
       </div>
     )
   );
