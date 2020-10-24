@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Nav, Navbar, NavItem } from "react-bootstrap";
+import { Nav, Navbar } from "react-bootstrap";
 import { Link, useHistory } from "react-router-dom";
-import { LinkContainer } from "react-router-bootstrap";
 import Routes from "./Routes";
 import { AppContext } from "./libs/contextLib";
 import { Auth } from "aws-amplify";
@@ -9,6 +8,7 @@ import { onError } from "./libs/errorLib";
 import { toast, ToastContainer } from "react-toastify";
 import ErrorBoundary from "./components/ErrorBoundary";
 import "react-toastify/dist/ReactToastify.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 
 function App() {
@@ -42,36 +42,36 @@ function App() {
 
   return (
     !isAuthenticating && (
-      <div className="App container">
-        <Navbar fluid collapseOnSelect>
-          <Navbar.Header>
-            <Navbar.Brand>
-              <Link to="/">Home</Link>
-            </Navbar.Brand>
-            <Navbar.Toggle />
-          </Navbar.Header>
-          <Navbar.Collapse>
-            <Nav>
-              <LinkContainer to="/ongoing">
-                <NavItem>Ongoing auctions</NavItem>
-              </LinkContainer>
+      <div className="App">
+        <Navbar collapseOnSelect expand="md" bg="dark" variant="dark">
+          <Navbar.Brand as={Link} to="/">
+            Home
+          </Navbar.Brand>
+          <Navbar.Toggle aria-controls="responsive-navbar-nav" />{" "}
+          <Navbar.Collapse id="responsive-navbar-nav">
+            <Nav className="mr-auto">
+              <Nav.Link as={Link} to="/ongoing">
+                Ongoing auctions
+              </Nav.Link>
             </Nav>
-            <Nav pullRight>
+            <Nav>
               {isAuthenticated ? (
                 <>
-                  <LinkContainer to="/settings">
-                    <NavItem>Settings</NavItem>
-                  </LinkContainer>
-                  <NavItem onClick={handleLogout}>Logout</NavItem>
+                  <Nav.Link as={Link} to="/settings">
+                    Settings
+                  </Nav.Link>
+                  <Nav.Link as={Link} to={handleLogout}>
+                    Logout
+                  </Nav.Link>
                 </>
               ) : (
                 <>
-                  <LinkContainer to="/signup">
-                    <NavItem>Signup</NavItem>
-                  </LinkContainer>
-                  <LinkContainer to="/login">
-                    <NavItem>Login</NavItem>
-                  </LinkContainer>
+                  <Nav.Link as={Link} to="/signup">
+                    Signup
+                  </Nav.Link>
+                  <Nav.Link as={Link} to="/login">
+                    Login
+                  </Nav.Link>
                 </>
               )}
             </Nav>

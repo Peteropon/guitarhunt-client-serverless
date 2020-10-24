@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { PageHeader, ListGroup, ListGroupItem } from "react-bootstrap";
+import { ListGroup, ListGroupItem } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import { useAppContext } from "../libs/contextLib";
 import { onError } from "../libs/errorLib";
@@ -70,7 +70,7 @@ export default function Home() {
   function renderAuctions() {
     return (
       <div className="auctions">
-        <PageHeader>Your auctions</PageHeader>
+        <h2>Your auctions</h2>
         {isLoading ? (
           <Spinner />
         ) : (

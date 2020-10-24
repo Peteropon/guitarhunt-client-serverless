@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { FormGroup, FormControl, ControlLabel } from "react-bootstrap";
+import { FormGroup, FormControl, FormLabel } from "react-bootstrap";
 import LoaderButton from "../components/LoaderButton";
 import { onError } from "../libs/errorLib";
 import { API } from "aws-amplify";
@@ -61,7 +61,7 @@ export default function NewAuction() {
       <h2>Create your auction</h2>
       <form onSubmit={handleSubmit}>
         <FormGroup controlId="title">
-          <ControlLabel>Title</ControlLabel>
+          <FormLabel>Title</FormLabel>
           <FormControl
             autoFocus
             value={title}
@@ -70,7 +70,7 @@ export default function NewAuction() {
           />
         </FormGroup>
         <FormGroup controlId="description">
-          <ControlLabel>Description</ControlLabel>
+          <FormLabel>Description</FormLabel>
           <FormControl
             value={description}
             componentClass="textarea"
@@ -78,7 +78,7 @@ export default function NewAuction() {
           />
         </FormGroup>
         <FormGroup controlId="startPrice">
-          <ControlLabel>Starting Price</ControlLabel>
+          <FormLabel>Starting Price</FormLabel>
           <FormControl
             value={startPrice}
             type="number"
@@ -86,14 +86,13 @@ export default function NewAuction() {
           />
         </FormGroup>
         <FormGroup controlId="file">
-          <ControlLabel>Attachment</ControlLabel>
+          <FormLabel>Attachment</FormLabel>
           <FormControl onChange={handleFileChange} type="file" />
         </FormGroup>
         <LoaderButton
           block
           type="submit"
-          bsSize="large"
-          bsStyle="primary"
+          variant="primary"
           isLoading={isLoading}
           disabled={!validateForm()}
         >
