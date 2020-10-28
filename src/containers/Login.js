@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FormGroup, FormControl, ControlLabel } from "react-bootstrap";
+import { FormGroup, FormControl, FormLabel } from "react-bootstrap";
 import "./Login.css";
 import { Auth } from "aws-amplify";
 import { useAppContext } from "../libs/contextLib";
@@ -37,8 +37,8 @@ export default function Login() {
   return (
     <div className="Login">
       <form onSubmit={handleSubmit}>
-        <FormGroup controlId="email" bsSize="large">
-          <ControlLabel>Email</ControlLabel>
+        <FormGroup controlId="email">
+          <FormLabel>Email</FormLabel>
           <FormControl
             autoFocus
             type="email"
@@ -46,8 +46,8 @@ export default function Login() {
             onChange={handleFieldChange}
           />
         </FormGroup>
-        <FormGroup controlId="password" bsSize="large">
-          <ControlLabel>Password</ControlLabel>
+        <FormGroup controlId="password">
+          <FormLabel>Password</FormLabel>
           <FormControl
             value={fields.password}
             onChange={handleFieldChange}
@@ -57,7 +57,6 @@ export default function Login() {
         <LoaderButton
           block
           type="submit"
-          bsSize="large"
           isLoading={isLoading}
           disabled={!validateForm()}
         >

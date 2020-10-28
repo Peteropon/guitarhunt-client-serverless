@@ -2,7 +2,7 @@ import React, { useRef, useState, useEffect } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import { API, Storage } from "aws-amplify";
 import { onError } from "../libs/errorLib";
-import { FormGroup, FormControl, ControlLabel } from "react-bootstrap";
+import { FormGroup, FormControl, FormLabel } from "react-bootstrap";
 import LoaderButton from "../components/LoaderButton";
 import config from "../config";
 import { s3Delete, s3Upload } from "../libs/awsLib";
@@ -125,7 +125,7 @@ export default function EditAuction() {
       {auction && (
         <form onSubmit={handleSubmit}>
           <FormGroup controlId="title">
-            <ControlLabel>Title</ControlLabel>
+            <FormLabel>Title</FormLabel>
             <FormControl
               autoFocus
               value={auction.title}
@@ -136,7 +136,7 @@ export default function EditAuction() {
             />
           </FormGroup>
           <FormGroup controlId="description">
-            <ControlLabel>Description</ControlLabel>
+            <FormLabel>Description</FormLabel>
             <FormControl
               value={auction.description}
               componentClass="textarea"
@@ -146,7 +146,7 @@ export default function EditAuction() {
             />
           </FormGroup>
           <FormGroup controlId="startPrice">
-            <ControlLabel>Starting Price</ControlLabel>
+            <FormLabel>Starting Price</FormLabel>
             <FormControl
               value={auction.startPrice}
               type="number"
@@ -157,7 +157,7 @@ export default function EditAuction() {
           </FormGroup>
           {auction.attachment && (
             <FormGroup>
-              <ControlLabel>Attachment</ControlLabel>
+              <FormLabel>Attachment</FormLabel>
               <FormControl.Static>
                 <a
                   target="_blank"
@@ -170,14 +170,13 @@ export default function EditAuction() {
             </FormGroup>
           )}
           <FormGroup controlId="file">
-            {!auction.attachment && <ControlLabel>Attachment</ControlLabel>}
+            {!auction.attachment && <FormLabel>Attachment</FormLabel>}
             <FormControl onChange={handleFileChange} type="file" />
           </FormGroup>
           <LoaderButton
             block
             type="submit"
-            bsSize="large"
-            bsStyle="primary"
+            variant="primary"
             isLoading={isLoading}
             disabled={!validateForm()}
           >
@@ -185,8 +184,7 @@ export default function EditAuction() {
           </LoaderButton>
           <LoaderButton
             block
-            bsSize="large"
-            bsStyle="danger"
+            variant="danger"
             onClick={handleDelete}
             isLoading={isDeleting}
           >
