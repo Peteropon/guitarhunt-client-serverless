@@ -60,9 +60,7 @@ function App() {
                   <Nav.Link as={Link} to="/settings">
                     Settings
                   </Nav.Link>
-                  <Nav.Link as={Link} to={handleLogout}>
-                    Logout
-                  </Nav.Link>
+                  <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
                 </>
               ) : (
                 <>
