@@ -73,7 +73,7 @@ export default function NewAuction() {
           <FormLabel>Description</FormLabel>
           <FormControl
             value={description}
-            componentClass="textarea"
+            componentclass="textarea"
             onChange={(e) => setDescription(e.target.value)}
           />
         </FormGroup>

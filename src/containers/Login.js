@@ -1,68 +1,81 @@
 import React, { useState } from "react";
-import { FormGroup, FormControl, FormLabel } from "react-bootstrap";
+import { Form, Button } from "react-bootstrap";
 import "./Login.css";
 import { Auth } from "aws-amplify";
 import { useAppContext } from "../libs/contextLib";
-import { useFormFields } from "../libs/hooksLib";
 import { toast } from "react-toastify";
 import { onError } from "../libs/errorLib";
-import LoaderButton from "../components/LoaderButton";
 
 export default function Login() {
   const { userHasAuthenticated } = useAppContext();
-  const [fields, handleFieldChange] = useFormFields({
-    email: "",
-    password: "",
-  });
   const [isLoading, setLoading] = useState(false);
-
-  function validateForm() {
-    return fields.email.length > 0 && fields.password.length > 0;
-  }
+  const [validated, setValidated] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   async function handleSubmit(event) {
     event.preventDefault();
+    const form = event.currentTarget;
+
+    if (form.checkValidity() === false) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+
+    setValidated(true);
     setLoading(true);
     try {
-      await Auth.signIn(fields.email, fields.password);
+      await Auth.signIn(email, password);
       userHasAuthenticated(true);
       toast.success("You have successfully logged in");
-      setLoading(false);
     } catch (e) {
       onError(e);
       setLoading(false);
     }
   }
 
+  function validateForm() {
+    return email.length > 0 && password.length > 0;
+  }
+
   return (
     <div className="Login">
-      <form onSubmit={handleSubmit}>
-        <FormGroup controlId="email">
-          <FormLabel>Email</FormLabel>
-          <FormControl
-            autoFocus
+      <Form noValidate validated={validated} onSubmit={handleSubmit}>
+        <Form.Group controlId="formEmail">
+          <Form.Label>Email address</Form.Label>
+          <Form.Control
             type="email"
-            value={fields.email}
-            onChange={handleFieldChange}
+            placeholder="Enter email"
+            autoFocus
+            required
+            onChange={(e) => {
+              setEmail(e.target.value);
+            }}
           />
-        </FormGroup>
-        <FormGroup controlId="password">
-          <FormLabel>Password</FormLabel>
-          <FormControl
-            value={fields.password}
-            onChange={handleFieldChange}
+          <Form.Control.Feedback type="invalid">
+            Please provide a valid email.
+          </Form.Control.Feedback>
+        </Form.Group>
+
+        <Form.Group controlId="formPassword">
+          <Form.Label>Password</Form.Label>
+          <Form.Control
             type="password"
+            placeholder="Password"
+            required
+            onChange={(e) => {
+              setPassword(e.target.value);
+            }}
           />
-        </FormGroup>
-        <LoaderButton
-          block
+        </Form.Group>
+        <Button
+          disabled={isLoading || !validateForm()}
+          variant="primary"
           type="submit"
-          isLoading={isLoading}
-          disabled={!validateForm()}
         >
-          Login
-        </LoaderButton>
-      </form>
+          Log in
+        </Button>
+      </Form>
     </div>
   );
 }
