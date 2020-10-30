@@ -1,5 +1,5 @@
-This is an auction website (if i ever finish it). It's a continuation of a school project meant to help me learn React and Serverless deployment. I have used this tutorial as a guide https://serverless-stack.com/chapters/who-is-this-guide-for.html. It is using Stripe as a billing service and Netlify for deployment. For logging in and signing up it uses AWS Cognito, both user pools and identity pools for giving registered users certain access. Fotos are uploaded in an AWS S3 bucket.
-An early version of the website is deployed live at https://hungry-torvalds-62bcd0.netlify.app/ (continuous deployment on every push on master branch). Warning: it's not very pretty yet.
+This started as an auctions website but I decided to change to something simpler, a website for rating guitar models (if i ever finish it). It's a continuation of a school project meant to help me learn React and Serverless deployment. I have used this tutorial as a guide https://serverless-stack.com/chapters/who-is-this-guide-for.html. It is using Stripe as a billing service and Netlify for deployment. For logging in and signing up it uses AWS Cognito, both user pools and identity pools for giving registered users certain access. Fotos are uploaded in an AWS S3 bucket.
+An early version of the website is deployed live at https://hungry-torvalds-62bcd0.netlify.app/ (continuous deployment on every push on the master branch). Warning: it's not very pretty yet.
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 

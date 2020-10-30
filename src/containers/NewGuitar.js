@@ -5,20 +5,19 @@ import LoaderButton from "../components/LoaderButton";
 import { onError } from "../libs/errorLib";
 import { API } from "aws-amplify";
 import config from "../config";
-import "./NewAuction.css";
+import "./NewGuitar.css";
 import { toast } from "react-toastify";
 import { s3Upload } from "../libs/awsLib";
 
-export default function NewAuction() {
+export default function NewGuitar() {
   const file = useRef(null);
   const history = useHistory();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [startPrice, setStartPrice] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
 
   function validateForm() {
-    return title.length > 0 && description.length > 0 && startPrice > 0;
+    return title.length > 0 && description.length > 0;
   }
 
   function handleFileChange(event) {
@@ -41,8 +40,8 @@ export default function NewAuction() {
     try {
       const attachment = file.current ? await s3Upload(file.current) : null;
 
-      await createAuction({ title, description, startPrice, attachment });
-      toast.success("Your auction have been successfully created");
+      await createGuitar({ title, description, attachment });
+      toast.success("Your post has been successfully created");
       history.push("/");
     } catch (e) {
       onError(e);
@@ -50,15 +49,15 @@ export default function NewAuction() {
     }
   }
 
-  function createAuction(auction) {
-    return API.post("auctions", "/auctions", {
-      body: auction,
+  function createGuitar(guitar) {
+    return API.post("guitars", "/guitars", {
+      body: guitar,
     });
   }
 
   return (
-    <div className="NewAuction">
-      <h2>Create your auction</h2>
+    <div className="NewGuitar">
+      <h2>Create your guitar</h2>
       <form onSubmit={handleSubmit}>
         <FormGroup controlId="title">
           <FormLabel>Title</FormLabel>
@@ -75,14 +74,6 @@ export default function NewAuction() {
             value={description}
             componentclass="textarea"
             onChange={(e) => setDescription(e.target.value)}
-          />
-        </FormGroup>
-        <FormGroup controlId="startPrice">
-          <FormLabel>Starting Price</FormLabel>
-          <FormControl
-            value={startPrice}
-            type="number"
-            onChange={(e) => setStartPrice(e.target.value)}
           />
         </FormGroup>
         <FormGroup controlId="file">

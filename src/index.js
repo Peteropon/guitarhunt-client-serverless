@@ -26,7 +26,7 @@ Amplify.configure({
   API: {
     endpoints: [
       {
-        name: "auctions",
+        name: "guitars",
         endpoint: config.apiGateway.URL,
         region: config.apiGateway.REGION,
       },

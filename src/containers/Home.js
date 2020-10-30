@@ -8,7 +8,7 @@ import Spinner from "../components/Spinner";
 import "./Home.css";
 
 export default function Home() {
-  const [auctions, setAuctions] = useState([]);
+  const [guitars, setGuitars] = useState([]);
   const { isAuthenticated } = useAppContext();
   const [isLoading, setIsLoading] = useState(true);
 
@@ -19,8 +19,8 @@ export default function Home() {
       }
 
       try {
-        const auctions = await loadAuctions();
-        setAuctions(auctions);
+        const guitars = await loadGuitars();
+        setGuitars(guitars);
       } catch (e) {
         onError(e);
       }
@@ -31,26 +31,23 @@ export default function Home() {
     onLoad();
   }, [isAuthenticated]);
 
-  function loadAuctions() {
-    return API.get("auctions", "/auctions");
+  function loadGuitars() {
+    return API.get("guitars", "/guitars");
   }
 
-  function renderAuctionsList(auctions) {
-    return [{}].concat(auctions).map((auction, i) =>
+  function renderGuitarsList(guitars) {
+    return [{}].concat(guitars).map((guitar, i) =>
       i !== 0 ? (
-        <LinkContainer
-          key={auction.auctionId}
-          to={`/auctions/${auction.auctionId}`}
-        >
-          <ListGroupItem header={auction.title.trim().split("\n")[0]}>
-            {"Created: " + new Date(auction.createdAt).toLocaleString()}
+        <LinkContainer key={guitar.guitarId} to={`/guitars/${guitar.guitarId}`}>
+          <ListGroupItem header={guitar.title.trim().split("\n")[0]}>
+            {"Created: " + new Date(guitar.createdAt).toLocaleString()}
           </ListGroupItem>
         </LinkContainer>
       ) : (
-        <LinkContainer key="new" to="/auctions/new">
+        <LinkContainer key="new" to="/guitars/new">
           <ListGroupItem>
             <h4>
-              <b>{"\uFF0B"}</b> Create a new auction
+              <b>{"\uFF0B"}</b> Create a new guitar
             </h4>
           </ListGroupItem>
         </LinkContainer>
@@ -61,20 +58,20 @@ export default function Home() {
   function renderLander() {
     return (
       <div className="lander">
-        <h1>Auctionera</h1>
-        <p>A good place for auctions</p>
+        <h1>Guitarera</h1>
+        <p>A good place for guitars</p>
       </div>
     );
   }
 
-  function renderAuctions() {
+  function renderGuitars() {
     return (
-      <div className="auctions">
-        <h2>Your auctions</h2>
+      <div className="guitars">
+        <h2>Your guitars</h2>
         {isLoading ? (
           <Spinner />
         ) : (
-          <ListGroup>{!isLoading && renderAuctionsList(auctions)}</ListGroup>
+          <ListGroup>{!isLoading && renderGuitarsList(guitars)}</ListGroup>
         )}
       </div>
     );
@@ -82,7 +79,7 @@ export default function Home() {
 
   return (
     <div className="Home">
-      {isAuthenticated ? renderAuctions() : renderLander()}
+      {isAuthenticated ? renderGuitars() : renderLander()}
     </div>
   );
 }

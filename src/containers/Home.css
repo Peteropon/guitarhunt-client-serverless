@@ -12,7 +12,7 @@
   color: #999;
 }
 
-.Home .auctions h4 {
+.Home .guitars h4 {
   font-family: "Open Sans", sans-serif;
   font-weight: 600;
   overflow: hidden;
@@ -20,6 +20,6 @@
   white-space: nowrap;
   text-overflow: ellipsis;
 }
-.Home .auctions p {
+.Home .guitars p {
   color: #666;
 }

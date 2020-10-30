@@ -49,12 +49,7 @@ function App() {
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />{" "}
           <Navbar.Collapse id="responsive-navbar-nav">
-            <Nav className="mr-auto">
-              <Nav.Link as={Link} to="/ongoing">
-                Ongoing auctions
-              </Nav.Link>
-            </Nav>
-            <Nav>
+            <Nav className="ml-auto">
               {isAuthenticated ? (
                 <>
                   <Nav.Link as={Link} to="/settings">
