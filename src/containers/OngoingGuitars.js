@@ -3,17 +3,17 @@ import { Button, Card, CardDeck } from "react-bootstrap";
 import { onError } from "../libs/errorLib";
 import { API } from "aws-amplify";
 import Spinner from "../components/Spinner";
-import "./OngoingAuctions.css";
+import "./OngoingGuitars.css";
 
-export default function OngoingAuctions() {
-  const [auctions, setAuctions] = useState([]);
+export default function OngoingGuitars() {
+  const [guitars, setGuitars] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     async function onLoad() {
       try {
-        const auctions = await loadOngoingAuctions();
-        setAuctions(auctions);
+        const guitars = await loadOngoingGuitars();
+        setGuitars(guitars);
       } catch (e) {
         onError(e);
       }
@@ -23,29 +23,29 @@ export default function OngoingAuctions() {
     onLoad();
   }, []);
 
-  function loadOngoingAuctions() {
-    return API.get("auctions", "/listall");
+  function loadOngoingGuitars() {
+    return API.get("guitars", "/listall");
   }
 
-  function renderOngoingAuctions() {
+  function renderOngoingGuitars() {
     return (
       <div>
-        {auctions.length === 0 ? (
-          <h4>No ongoing auctions at the moment...</h4>
+        {guitars.length === 0 ? (
+          <h4>No ongoing guitars at the moment...</h4>
         ) : (
           <CardDeck>
-            {auctions.map((auction) => {
+            {guitars.map((guitar) => {
               return (
                 <Card bg="light">
                   <Card.Img variant="top" alt="Photo not found" />
                   <Card.Body>
-                    <Card.Title>{auction.title}</Card.Title>
-                    <Card.Text>{auction.description}</Card.Text>
+                    <Card.Title>{guitar.title}</Card.Title>
+                    <Card.Text>{guitar.description}</Card.Text>
                     <Button variant="dark">Bid!</Button>
                   </Card.Body>
                   <Card.Footer>
                     <small className="text-muted">
-                      Starting price: {auction.startPrice}
+                      Starting price: {guitar.startPrice}
                     </small>
                     <p>Current bid: </p>
                   </Card.Footer>
@@ -58,5 +58,5 @@ export default function OngoingAuctions() {
     );
   }
 
-  return <div>{isLoading ? <Spinner /> : renderOngoingAuctions()}</div>;
+  return <div>{isLoading ? <Spinner /> : renderOngoingGuitars()}</div>;
 }

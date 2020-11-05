@@ -42,7 +42,7 @@ function BillingForm({ isLoading, onSubmit, ...props }) {
           type="number"
           value={fields.storage}
           onChange={handleFieldChange}
-          placeholder="Number of notes to store"
+          placeholder="Number of guitars to store"
         />
       </FormGroup>
       <hr />

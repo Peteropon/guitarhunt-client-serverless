@@ -6,31 +6,31 @@ import { FormGroup, FormControl, FormLabel } from "react-bootstrap";
 import LoaderButton from "../components/LoaderButton";
 import config from "../config";
 import { s3Delete, s3Upload } from "../libs/awsLib";
-import "./EditAuction.css";
+import "./EditGuitar.css";
 import { toast } from "react-toastify";
 
-export default function EditAuction() {
+export default function EditGuitar() {
   const file = useRef(null);
   const { id } = useParams();
   const history = useHistory();
-  const [auction, setAuction] = useState(null);
+  const [guitar, setGuitar] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
 
   useEffect(() => {
-    function loadAuction() {
-      return API.get("auctions", `/auctions/${id}`);
+    function loadGuitar() {
+      return API.get("guitars", `/guitars/${id}`);
     }
 
     async function onLoad() {
       try {
-        const result = await loadAuction();
+        const result = await loadGuitar();
 
         if (result.attachment) {
           result.attachmentURL = await Storage.vault.get(result.attachment);
         }
 
-        setAuction(result);
+        setGuitar(result);
       } catch (e) {
         onError(e);
       }
@@ -40,11 +40,7 @@ export default function EditAuction() {
   }, [id]);
 
   function validateForm() {
-    return (
-      auction.title.length > 0 &&
-      auction.description.length > 0 &&
-      auction.startPrice.length > 0
-    );
+    return guitar.title.length > 0 && guitar.description.length > 0;
   }
 
   function formatFilename(str) {
@@ -55,9 +51,9 @@ export default function EditAuction() {
     file.current = event.target.files[0];
   }
 
-  function saveAuction(auction) {
-    return API.put("auctions", `/auctions/${id}`, {
-      body: auction,
+  function saveGuitar(guitar) {
+    return API.put("guitars", `/guitars/${id}`, {
+      body: guitar,
     });
   }
 
@@ -80,11 +76,11 @@ export default function EditAuction() {
       if (file.current) {
         attachment = await s3Upload(file.current);
       }
-      await saveAuction({
-        ...auction,
-        attachment: attachment || auction.attachment,
+      await saveGuitar({
+        ...guitar,
+        attachment: attachment || guitar.attachment,
       });
-      toast.success("Your auction has been successfully updated");
+      toast.success("Your guitar has been successfully updated");
       history.push("/");
     } catch (e) {
       onError(e);
@@ -92,14 +88,14 @@ export default function EditAuction() {
     }
   }
 
-  function deleteAuction() {
-    return API.del("auctions", `/auctions/${id}`);
+  function deleteGuitar() {
+    return API.del("guitars", `/guitars/${id}`);
   }
 
   async function handleDelete(event) {
     event.preventDefault();
     const confirmed = window.confirm(
-      "Are you sure you want to delete this auction?"
+      "Are you sure you want to delete this guitar?"
     );
 
     if (!confirmed) {
@@ -109,9 +105,9 @@ export default function EditAuction() {
     setIsDeleting(true);
 
     try {
-      await s3Delete(auction.attachment);
-      await deleteAuction();
-      toast.success("Your auction has been successfully deleted");
+      await s3Delete(guitar.attachment);
+      await deleteGuitar();
+      toast.success("Your guitar has been successfully deleted");
       history.push("/");
     } catch (e) {
       onError(e);
@@ -120,57 +116,45 @@ export default function EditAuction() {
   }
 
   return (
-    <div className="Auctions">
-      <h2>Edit your auction</h2>
-      {auction && (
+    <div className="Guitars">
+      <h2>Edit your guitar</h2>
+      {guitar && (
         <form onSubmit={handleSubmit}>
           <FormGroup controlId="title">
             <FormLabel>Title</FormLabel>
             <FormControl
               autoFocus
-              value={auction.title}
+              value={guitar.title}
               type="text"
-              onChange={(e) =>
-                setAuction({ ...auction, title: e.target.value })
-              }
+              onChange={(e) => setGuitar({ ...guitar, title: e.target.value })}
             />
           </FormGroup>
           <FormGroup controlId="description">
             <FormLabel>Description</FormLabel>
             <FormControl
-              value={auction.description}
+              value={guitar.description}
               componentClass="textarea"
               onChange={(e) =>
-                setAuction({ ...auction, description: e.target.value })
+                setGuitar({ ...guitar, description: e.target.value })
               }
             />
           </FormGroup>
-          <FormGroup controlId="startPrice">
-            <FormLabel>Starting Price</FormLabel>
-            <FormControl
-              value={auction.startPrice}
-              type="number"
-              onChange={(e) =>
-                setAuction({ ...auction, startPrice: e.target.value })
-              }
-            />
-          </FormGroup>
-          {auction.attachment && (
+          {guitar.attachment && (
             <FormGroup>
               <FormLabel>Attachment</FormLabel>
               <FormControl.Static>
                 <a
                   target="_blank"
                   rel="noopener noreferrer"
-                  href={auction.attachmentURL}
+                  href={guitar.attachmentURL}
                 >
-                  {formatFilename(auction.attachment)}
+                  {formatFilename(guitar.attachment)}
                 </a>
               </FormControl.Static>
             </FormGroup>
           )}
           <FormGroup controlId="file">
-            {!auction.attachment && <FormLabel>Attachment</FormLabel>}
+            {!guitar.attachment && <FormLabel>Attachment</FormLabel>}
             <FormControl onChange={handleFileChange} type="file" />
           </FormGroup>
           <LoaderButton

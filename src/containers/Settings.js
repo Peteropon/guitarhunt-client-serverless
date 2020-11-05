@@ -18,7 +18,7 @@ export default function Settings() {
   }, []);
 
   function billUser(details) {
-    return API.post("auctions", "/billing", {
+    return API.post("guitars", "/billing", {
       body: details,
     });
   }

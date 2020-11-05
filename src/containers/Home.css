@@ -1,6 +1,10 @@
 .Home .lander {
   padding: 80px 0;
   text-align: center;
+  background-image: linear-gradient(
+    rgba(102, 102, 128, 0.349),
+    rgba(228, 140, 159, 0.5)
+  );
 }
 
 .Home .lander h1 {
@@ -12,7 +16,7 @@
   color: #999;
 }
 
-.Home .auctions h4 {
+.Home .guitars h4 {
   font-family: "Open Sans", sans-serif;
   font-weight: 600;
   overflow: hidden;
@@ -20,6 +24,6 @@
   white-space: nowrap;
   text-overflow: ellipsis;
 }
-.Home .auctions p {
+.Home .guitars p {
   color: #666;
 }

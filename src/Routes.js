@@ -4,9 +4,8 @@ import Home from "./containers/Home";
 import NotFound from "./containers/NotFound";
 import Login from "./containers/Login";
 import Signup from "./containers/Signup";
-import NewAuction from "./containers/NewAuction";
-import OngoingAuctions from "./containers/OngoingAuctions";
-import EditAuction from "./containers/EditAuction";
+import NewGuitar from "./containers/NewGuitar";
+import EditGuitar from "./containers/EditGuitar";
 import Settings from "./containers/Settings";
 import AuthenticatedRoute from "./components/AuthenticatedRoute";
 import UnauthenticatedRoute from "./components/UnauthenticatedRoute";
@@ -23,15 +22,12 @@ export default function Routes() {
       <UnauthenticatedRoute exact path="/signup">
         <Signup />
       </UnauthenticatedRoute>
-      <AuthenticatedRoute exact path="/auctions/new">
-        <NewAuction />
+      <AuthenticatedRoute exact path="/guitars/new">
+        <NewGuitar />
       </AuthenticatedRoute>
-      <AuthenticatedRoute exact path="/auctions/:id">
-        <EditAuction />
+      <AuthenticatedRoute exact path="/guitars/:id">
+        <EditGuitar />
       </AuthenticatedRoute>
-      <UnauthenticatedRoute exact path="/ongoing">
-        <OngoingAuctions />
-      </UnauthenticatedRoute>
       <AuthenticatedRoute exact path="/settings">
         <Settings />
       </AuthenticatedRoute>

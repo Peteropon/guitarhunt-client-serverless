@@ -3,17 +3,17 @@ const dev = {
     "pk_test_51HAjXmFeB5e0LAgRrdZV0ov4i9ALknBOHFxAtQ4wF1JqBpND4NVdrYoi3nPODfuGOnfwsINefjzanwQKUtOFxH9q00EAnIGj3t",
   s3: {
     REGION: "us-east-2",
-    BUCKET: "auktionera-2-api-dev-attachmentsbucket-fiopbngskbuh",
+    BUCKET: "guitars-api-dev-serverlessdeploymentbucket-wyco4praf364",
   },
   apiGateway: {
     REGION: "us-east-2",
-    URL: "https://qfyfbnnxx4.execute-api.us-east-2.amazonaws.com/dev",
+    URL: "https://r1nzjt3o43.execute-api.us-east-2.amazonaws.com/dev",
   },
   cognito: {
     REGION: "us-east-2",
-    USER_POOL_ID: "us-east-2_9zczYu0W6",
-    APP_CLIENT_ID: "76brgafkqme201jqkaqeqq9299",
-    IDENTITY_POOL_ID: "us-east-2:d4893808-eb80-49a9-8e61-f57d6ea12082",
+    USER_POOL_ID: "us-east-2_rPwakJDmC",
+    APP_CLIENT_ID: "qvs3tbc2dd9gfkjlmnok033ps",
+    IDENTITY_POOL_ID: "us-east-2:07835e15-244d-4e95-8900-3ce28955de50",
   },
 };
 
@@ -22,7 +22,7 @@ const prod = {
     "pk_test_51HAjXmFeB5e0LAgRrdZV0ov4i9ALknBOHFxAtQ4wF1JqBpND4NVdrYoi3nPODfuGOnfwsINefjzanwQKUtOFxH9q00EAnIGj3t",
   s3: {
     REGION: "us-east-2",
-    BUCKET: "auktionera-2-api-prod-attachmentsbucket-5zrmd1178fi1",
+    BUCKET: "prod-guitars-infra-s3-uploads4f6eb0fd-mzjgtg6t33im",
   },
   apiGateway: {
     REGION: "us-east-2",
@@ -30,9 +30,9 @@ const prod = {
   },
   cognito: {
     REGION: "us-east-2",
-    USER_POOL_ID: "us-east-2_2pK1V8ZIu",
-    APP_CLIENT_ID: "56vmb94brtrqlle4fur2t37b39",
-    IDENTITY_POOL_ID: "us-east-2:150b8f56-79a7-4ffa-b392-3111285e9561",
+    USER_POOL_ID: "us-east-2_EiCMqtdu8",
+    APP_CLIENT_ID: "7rutrsuenlc2t9g09qbfdd8j2e",
+    IDENTITY_POOL_ID: "us-east-2:0a00c83f-1afc-491a-a645-58146663713b",
   },
 };
 
