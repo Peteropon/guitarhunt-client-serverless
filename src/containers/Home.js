@@ -6,6 +6,7 @@ import { API } from "aws-amplify";
 import Spinner from "../components/Spinner";
 import "./Home.css";
 import { Link } from "react-router-dom";
+import Jdenticon from "react-jdenticon";
 
 export default function Home() {
   const [guitars, setGuitars] = useState([]);
@@ -44,8 +45,13 @@ export default function Home() {
           as={Link}
           to={`/guitars/${guitar.guitarId}`}
         >
-          <p>{guitar.title}</p>
-          {"Votes: " + guitar.votes}
+          <div className="media pt-2">
+            <Jdenticon size="40" value={guitar.userId} />
+            <p className="ml-2">
+              <strong>{guitar.title}</strong>
+            </p>
+            <p className="ml-auto">Votes: {guitar.votes}</p>
+          </div>
         </ListGroup.Item>
       );
     });
@@ -59,7 +65,7 @@ export default function Home() {
       </div>
       {isAuthenticated ? (
         <div className="guitars">
-          <h2>Top guitars</h2>
+          <h4>Top guitars</h4>
           {isLoading ? (
             <Spinner />
           ) : (
