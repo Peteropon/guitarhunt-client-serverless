@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { ListGroup } from "react-bootstrap";
+import { ListGroup, OverlayTrigger, Tooltip } from "react-bootstrap";
 import { useAppContext } from "../libs/contextLib";
 import { onError } from "../libs/errorLib";
 import { API } from "aws-amplify";
@@ -39,20 +39,27 @@ export default function Home() {
   function renderGuitarsList(guitars) {
     return guitars.map((guitar) => {
       return (
-        <ListGroup.Item
-          key={guitar.guitarId}
-          action
-          as={Link}
-          to={`/guitars/${guitar.guitarId}`}
+        <OverlayTrigger
+          placement="top"
+          overlay={
+            <Tooltip>Click to see more details and rate this item.</Tooltip>
+          }
         >
-          <div className="media pt-2">
-            <Jdenticon size="40" value={guitar.userId} />
-            <p className="ml-2">
-              <strong>{guitar.title}</strong>
-            </p>
-            <p className="ml-auto">Votes: {guitar.votes}</p>
-          </div>
-        </ListGroup.Item>
+          <ListGroup.Item
+            key={guitar.guitarId}
+            action
+            as={Link}
+            to={`/guitars/${guitar.guitarId}`}
+          >
+            <div className="media pt-2">
+              <Jdenticon size="40" value={guitar.userId} />
+              <p className="ml-2">
+                <strong>{guitar.title}</strong>
+              </p>
+              <p className="ml-auto">Votes: {guitar.votes}</p>
+            </div>
+          </ListGroup.Item>
+        </OverlayTrigger>
       );
     });
   }
