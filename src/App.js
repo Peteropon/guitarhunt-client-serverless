@@ -49,25 +49,30 @@ function App() {
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />{" "}
           <Navbar.Collapse id="responsive-navbar-nav">
-            <Nav className="ml-auto">
-              {isAuthenticated ? (
-                <>
+            {isAuthenticated ? (
+              <>
+                <Nav>
+                  <Nav.Link as={Link} to="/myguitars">
+                    My Guitars
+                  </Nav.Link>
+                </Nav>
+                <Nav className="ml-auto">
                   <Nav.Link as={Link} to="/settings">
                     Settings
                   </Nav.Link>
                   <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
-                </>
-              ) : (
-                <>
-                  <Nav.Link as={Link} to="/signup">
-                    Signup
-                  </Nav.Link>
-                  <Nav.Link as={Link} to="/login">
-                    Login
-                  </Nav.Link>
-                </>
-              )}
-            </Nav>
+                </Nav>
+              </>
+            ) : (
+              <Nav className="ml-auto">
+                <Nav.Link as={Link} to="/signup">
+                  Signup
+                </Nav.Link>
+                <Nav.Link as={Link} to="/login">
+                  Login
+                </Nav.Link>
+              </Nav>
+            )}
           </Navbar.Collapse>
         </Navbar>
         <ErrorBoundary>

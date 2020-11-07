@@ -9,6 +9,7 @@ import EditGuitar from "./containers/EditGuitar";
 import Settings from "./containers/Settings";
 import AuthenticatedRoute from "./components/AuthenticatedRoute";
 import UnauthenticatedRoute from "./components/UnauthenticatedRoute";
+import MyGuitars from "./containers/MyGuitars";
 
 export default function Routes() {
   return (
@@ -24,6 +25,9 @@ export default function Routes() {
       </UnauthenticatedRoute>
       <AuthenticatedRoute exact path="/guitars/new">
         <NewGuitar />
+      </AuthenticatedRoute>
+      <AuthenticatedRoute exact path="/myguitars">
+        <MyGuitars />
       </AuthenticatedRoute>
       <AuthenticatedRoute exact path="/guitars/:id">
         <EditGuitar />
