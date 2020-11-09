@@ -23,7 +23,7 @@ export default function Routes() {
       <UnauthenticatedRoute exact path="/signup">
         <Signup />
       </UnauthenticatedRoute>
-      <AuthenticatedRoute exact path="/guitars/new">
+      <AuthenticatedRoute exact path="/newguitar">
         <NewGuitar />
       </AuthenticatedRoute>
       <AuthenticatedRoute exact path="/myguitars">
