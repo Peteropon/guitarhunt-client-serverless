@@ -64,6 +64,9 @@ export default function MyGuitars() {
   return (
     <div>
       <h2>My Guitars</h2>
+      <Button as={Link} to="/newguitar" className="m-3" variant="outline-dark">
+        Add a Guitar
+      </Button>
       {isLoading ? (
         <Spinner />
       ) : myGuitars.length > 0 && !isLoading ? (
@@ -71,7 +74,6 @@ export default function MyGuitars() {
       ) : (
         <div>
           <p>You have no guitars to show. Add one ;)</p>
-          <Button></Button>
         </div>
       )}
     </div>
