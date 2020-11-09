@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { FormGroup, FormControl, FormLabel } from "react-bootstrap";
+import { FormGroup, FormControl, FormLabel, Form } from "react-bootstrap";
 import LoaderButton from "../components/LoaderButton";
 import { onError } from "../libs/errorLib";
 import { API } from "aws-amplify";
@@ -14,6 +14,7 @@ export default function NewGuitar() {
   const history = useHistory();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  const [url, setUrl] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
   function validateForm() {
@@ -40,7 +41,7 @@ export default function NewGuitar() {
     try {
       const attachment = file.current ? await s3Upload(file.current) : null;
 
-      await createGuitar({ title, description, attachment });
+      await createGuitar({ title, description, url, attachment });
       toast.success("Your post has been successfully created");
       history.push("/");
     } catch (e) {
@@ -75,6 +76,18 @@ export default function NewGuitar() {
             componentclass="textarea"
             onChange={(e) => setDescription(e.target.value)}
           />
+        </FormGroup>
+        <FormGroup controlId="url">
+          <FormLabel>Url</FormLabel>
+          <FormControl
+            value={url}
+            componentclass="text"
+            aria-describedby="helpText"
+            onChange={(e) => setUrl(e.target.value)}
+          />
+          <Form.Text id="helpText" muted>
+            Make sure you provide a valid url link.
+          </Form.Text>
         </FormGroup>
         <FormGroup controlId="file">
           <FormLabel>Attachment</FormLabel>
