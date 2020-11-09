@@ -45,7 +45,6 @@ export default function Login() {
           <Form.Label>Email address</Form.Label>
           <Form.Control
             type="email"
-            placeholder="Enter email"
             autoFocus
             required
             onChange={(e) => {
@@ -61,7 +60,6 @@ export default function Login() {
           <Form.Label>Password</Form.Label>
           <Form.Control
             type="password"
-            placeholder="Password"
             required
             onChange={(e) => {
               setPassword(e.target.value);
