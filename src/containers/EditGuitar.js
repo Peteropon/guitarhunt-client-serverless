@@ -2,7 +2,7 @@ import React, { useRef, useState, useEffect } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import { API, Storage } from "aws-amplify";
 import { onError } from "../libs/errorLib";
-import { FormGroup, FormControl, FormLabel } from "react-bootstrap";
+import { FormGroup, FormControl, FormLabel, Form } from "react-bootstrap";
 import LoaderButton from "../components/LoaderButton";
 import config from "../config";
 import { s3Delete, s3Upload } from "../libs/awsLib";
@@ -119,7 +119,7 @@ export default function EditGuitar() {
     <div className="Guitars">
       <h2>Edit your guitar</h2>
       {guitar && (
-        <form onSubmit={handleSubmit}>
+        <Form onSubmit={handleSubmit}>
           <FormGroup controlId="title">
             <FormLabel>Title</FormLabel>
             <FormControl
@@ -133,7 +133,7 @@ export default function EditGuitar() {
             <FormLabel>Description</FormLabel>
             <FormControl
               value={guitar.description}
-              componentClass="textarea"
+              type="textarea"
               onChange={(e) =>
                 setGuitar({ ...guitar, description: e.target.value })
               }
@@ -142,7 +142,7 @@ export default function EditGuitar() {
           {guitar.attachment && (
             <FormGroup>
               <FormLabel>Attachment</FormLabel>
-              <FormControl.Static>
+              <Form.File>
                 <a
                   target="_blank"
                   rel="noopener noreferrer"
@@ -150,12 +150,12 @@ export default function EditGuitar() {
                 >
                   {formatFilename(guitar.attachment)}
                 </a>
-              </FormControl.Static>
+              </Form.File>
             </FormGroup>
           )}
           <FormGroup controlId="file">
             {!guitar.attachment && <FormLabel>Attachment</FormLabel>}
-            <FormControl onChange={handleFileChange} type="file" />
+            <Form.File onChange={handleFileChange} />
           </FormGroup>
           <LoaderButton
             block
@@ -174,7 +174,7 @@ export default function EditGuitar() {
           >
             Delete
           </LoaderButton>
-        </form>
+        </Form>
       )}
     </div>
   );
