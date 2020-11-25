@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { ListGroup, OverlayTrigger, Tooltip } from "react-bootstrap";
+import { Jumbotron, ListGroup, OverlayTrigger, Tooltip } from "react-bootstrap";
 import { useAppContext } from "../libs/contextLib";
 import { onError } from "../libs/errorLib";
 import { API } from "aws-amplify";
@@ -66,10 +66,10 @@ export default function Home() {
 
   return (
     <div className="Home">
-      <div className="lander">
+      <Jumbotron className="lander">
         <h1>Guitar Hunt</h1>
         <p>A good place to rate guitars</p>
-      </div>
+      </Jumbotron>
       {isAuthenticated ? (
         <div className="guitars">
           <h4>Top guitars</h4>
