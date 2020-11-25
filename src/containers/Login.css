@@ -8,3 +8,9 @@
     max-width: 320px;
   }
 }
+
+@media (max-width: 479px) {
+  .Login {
+    margin: 0.5em;
+  }
+}

@@ -67,6 +67,7 @@ export default function Login() {
           />
         </Form.Group>
         <Button
+          block
           disabled={isLoading || !validateForm()}
           variant="primary"
           type="submit"
