@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-import { FormGroup, FormControl, FormLabel } from "react-bootstrap";
+import { FormGroup, FormControl, FormLabel, Form } from "react-bootstrap";
 import { Auth } from "aws-amplify";
 import LoaderButton from "../components/LoaderButton";
 import { useAppContext } from "../libs/contextLib";
@@ -113,6 +113,10 @@ export default function Signup() {
             value={fields.password}
             onChange={handleFieldChange}
           />
+          <Form.Text id="helpText" muted>
+            The password needs to have numbers, special characters and both
+            upper and lowercase letters. Minimum 8 characters.
+          </Form.Text>
         </FormGroup>
         <FormGroup controlId="confirmPassword">
           <FormLabel>Confirm Password</FormLabel>
