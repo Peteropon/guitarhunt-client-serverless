@@ -1,5 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Jumbotron, ListGroup, OverlayTrigger, Tooltip } from "react-bootstrap";
+import {
+  Button,
+  Jumbotron,
+  ListGroup,
+  OverlayTrigger,
+  Tooltip,
+} from "react-bootstrap";
 import { useAppContext } from "../libs/contextLib";
 import { onError } from "../libs/errorLib";
 import { API } from "aws-amplify";
@@ -80,7 +86,18 @@ export default function Home() {
           )}
         </div>
       ) : (
-        <p>Sign up or login in order to start viewing and rating guitars.</p>
+        <Jumbotron className="logged-off">
+          <p>
+            <Button as={Link} to="/signup" variant="link">
+              Sign up
+            </Button>{" "}
+            or{" "}
+            <Button as={Link} to="/login" variant="link">
+              login
+            </Button>{" "}
+            in order to start viewing and rating guitars.
+          </p>
+        </Jumbotron>
       )}
     </div>
   );

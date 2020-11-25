@@ -20,6 +20,21 @@
   color: #999;
 }
 
+.Home .logged-off {
+  text-align: center;
+  font-family: "Open Sans", sans-serif;
+  font-weight: 600;
+  color: olive;
+  background-color: khaki;
+}
+
+.Home .logged-off .btn {
+  font-weight: 600;
+  color: olive;
+  background-color: khaki;
+  border-color: #b2b4b6;
+}
+
 .Home .guitars h4 {
   margin-top: 1em;
   font-family: "Open Sans", sans-serif;
