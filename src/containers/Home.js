@@ -3,6 +3,7 @@ import {
   Button,
   Jumbotron,
   ListGroup,
+  Modal,
   OverlayTrigger,
   Tooltip,
 } from "react-bootstrap";
@@ -18,6 +19,7 @@ export default function Home() {
   const [guitars, setGuitars] = useState([]);
   const { isAuthenticated } = useAppContext();
   const [isLoading, setIsLoading] = useState(true);
+  const [show, setShow] = useState(false);
 
   useEffect(() => {
     async function onLoad() {
@@ -42,30 +44,48 @@ export default function Home() {
     return API.get("guitars", "/rating");
   }
 
+  const handleShowModal = () => setShow(true);
+  const handleCloseModal = () => setShow(false);
+
   function renderGuitarsList(guitars) {
     return guitars.map((guitar) => {
       return (
-        <OverlayTrigger
-          placement="top"
-          overlay={
-            <Tooltip>Click to see more details and rate this item.</Tooltip>
-          }
-        >
-          <ListGroup.Item
-            key={guitar.guitarId}
-            action
-            as={Link}
-            to={`/guitars/${guitar.guitarId}`}
+        <>
+          <OverlayTrigger
+            placement="top"
+            overlay={
+              <Tooltip>Click to see more details and rate this item.</Tooltip>
+            }
           >
-            <div className="media pt-2">
-              <Jdenticon size="40" value={guitar.userId} />
-              <p className="ml-2">
-                <strong>{guitar.title}</strong>
-              </p>
-              <p className="ml-auto">Votes: {guitar.votes}</p>
-            </div>
-          </ListGroup.Item>
-        </OverlayTrigger>
+            <ListGroup.Item
+              key={guitar.guitarId}
+              action
+              onClick={handleShowModal}
+            >
+              <div className="media pt-2">
+                <Jdenticon size="40" value={guitar.userId} />
+                <p className="ml-2">
+                  <strong>{guitar.title}</strong>
+                </p>
+                <p className="ml-auto">Votes: {guitar.votes}</p>
+              </div>
+            </ListGroup.Item>
+          </OverlayTrigger>
+          <Modal show={show} onHide={handleCloseModal}>
+            <Modal.Header closeButton>
+              <Modal.Title>Patience...</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              We know you look forward to that but this feature is not ready
+              yet. We're working on it :)
+            </Modal.Body>
+            <Modal.Footer>
+              <Button variant="secondary" onClick={handleCloseModal}>
+                Ok, I'll be patient!
+              </Button>
+            </Modal.Footer>
+          </Modal>
+        </>
       );
     });
   }
