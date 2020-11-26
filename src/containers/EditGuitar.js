@@ -2,7 +2,14 @@ import React, { useRef, useState, useEffect } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import { API, Storage } from "aws-amplify";
 import { onError } from "../libs/errorLib";
-import { FormGroup, FormControl, FormLabel, Form } from "react-bootstrap";
+import {
+  FormGroup,
+  FormControl,
+  FormLabel,
+  Form,
+  Modal,
+  Button,
+} from "react-bootstrap";
 import LoaderButton from "../components/LoaderButton";
 import config from "../config";
 import { s3Delete, s3Upload } from "../libs/awsLib";
@@ -16,6 +23,10 @@ export default function EditGuitar() {
   const [guitar, setGuitar] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
+  const [show, setShow] = useState(false);
+
+  const handleShowModal = () => setShow(true);
+  const handleCloseModal = () => setShow(false);
 
   useEffect(() => {
     function loadGuitar() {
@@ -94,13 +105,6 @@ export default function EditGuitar() {
 
   async function handleDelete(event) {
     event.preventDefault();
-    const confirmed = window.confirm(
-      "Are you sure you want to delete this guitar?"
-    );
-
-    if (!confirmed) {
-      return;
-    }
 
     setIsDeleting(true);
 
@@ -169,13 +173,27 @@ export default function EditGuitar() {
           <LoaderButton
             block
             variant="danger"
-            onClick={handleDelete}
+            onClick={handleShowModal}
             isLoading={isDeleting}
           >
             Delete
           </LoaderButton>
         </Form>
       )}
+      <Modal show={show} onHide={handleCloseModal}>
+        <Modal.Header closeButton>
+          <Modal.Title>Deleting guitar</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Are you sure you want to delete this guitar?</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleCloseModal}>
+            Nah, forget it!
+          </Button>
+          <Button variant="primary" onClick={handleDelete}>
+            Yes, I'm sure!
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 }
