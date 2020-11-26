@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Nav, Navbar } from "react-bootstrap";
+import { Nav, Navbar, Modal, Button } from "react-bootstrap";
 import { Link, useHistory } from "react-router-dom";
 import Routes from "./Routes";
 import { AppContext } from "./libs/contextLib";
@@ -15,6 +15,10 @@ function App() {
   const history = useHistory();
   const [isAuthenticating, setIsAuthenticating] = useState(true);
   const [isAuthenticated, userHasAuthenticated] = useState(false);
+  const [show, setShow] = useState(false);
+
+  const handleShowModal = () => setShow(true);
+  const handleCloseModal = () => setShow(false);
 
   useEffect(() => {
     onLoad();
@@ -60,8 +64,22 @@ function App() {
                   <Nav.Link as={Link} to="/settings">
                     Settings
                   </Nav.Link>
-                  <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
+                  <Nav.Link onClick={handleShowModal}>Logout</Nav.Link>
                 </Nav>
+                <Modal show={show} onHide={handleCloseModal}>
+                  <Modal.Header closeButton>
+                    <Modal.Title>Signing out</Modal.Title>
+                  </Modal.Header>
+                  <Modal.Body>Are you sure you want to sign out?</Modal.Body>
+                  <Modal.Footer>
+                    <Button variant="secondary" onClick={handleCloseModal}>
+                      Nah, forget it!
+                    </Button>
+                    <Button variant="primary" onClick={handleLogout}>
+                      Yes, I'm sure!
+                    </Button>
+                  </Modal.Footer>
+                </Modal>
               </>
             ) : (
               <Nav className="ml-auto">
