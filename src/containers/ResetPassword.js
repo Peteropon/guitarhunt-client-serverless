@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { Auth } from "aws-amplify";
-import { Form, Button } from "react-bootstrap";
+import Form from "react-bootstrap/Form";
+import LoaderButton from "../components/LoaderButton";
 import { Link } from "react-router-dom";
 import { onError } from "../libs/errorLib";
+import { FaThumbsUp } from "react-icons/fa";
 import "./ResetPassword.css";
 
 export default function ResetPassword() {
@@ -87,14 +89,15 @@ export default function ResetPassword() {
             Please provide a valid email.
           </Form.Control.Feedback>
         </Form.Group>
-        <Button
+        <LoaderButton
           block
+          isLoading={isConfirmingEmail}
           disabled={isConfirmingEmail || !validateEmailForm()}
           variant="primary"
           type="submit"
         >
           Send Confirmation
-        </Button>
+        </LoaderButton>
       </Form>
     );
   }
@@ -136,14 +139,15 @@ export default function ResetPassword() {
             }}
           />
         </Form.Group>
-        <Button
+        <LoaderButton
           block
+          isLoading={isConfirming}
           disabled={isConfirming || !validateResetForm()}
           variant="primary"
           type="submit"
         >
           Confirm
-        </Button>
+        </LoaderButton>
       </Form>
     );
   }
@@ -151,8 +155,11 @@ export default function ResetPassword() {
   function renderSuccessMessage() {
     return (
       <div className="success">
-        <i className="far fa-thumbs-up"></i>{" "}
-        <p>Your password has been reset successfully.</p>
+        <p>
+          {" "}
+          <FaThumbsUp size="2em" className="m-2" />
+          Your password has been reset successfully.
+        </p>
         <p>
           <Link to="/login">
             Click here to login with your new credentials.
