@@ -10,6 +10,7 @@ import Settings from "./containers/Settings";
 import AuthenticatedRoute from "./components/AuthenticatedRoute";
 import UnauthenticatedRoute from "./components/UnauthenticatedRoute";
 import MyGuitars from "./containers/MyGuitars";
+import ResetPassword from "./containers/ResetPassword";
 
 export default function Routes() {
   return (
@@ -19,6 +20,9 @@ export default function Routes() {
       </Route>
       <UnauthenticatedRoute exact path="/login">
         <Login />
+      </UnauthenticatedRoute>
+      <UnauthenticatedRoute exact path="/login/reset">
+        <ResetPassword />
       </UnauthenticatedRoute>
       <UnauthenticatedRoute exact path="/signup">
         <Signup />

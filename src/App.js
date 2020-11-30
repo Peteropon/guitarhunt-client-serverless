@@ -51,11 +51,11 @@ function App() {
           <Navbar.Brand as={Link} to="/">
             Home
           </Navbar.Brand>
-          <Navbar.Toggle aria-controls="responsive-navbar-nav" />{" "}
+          <Navbar.Toggle />{" "}
           <Navbar.Collapse id="responsive-navbar-nav">
             {isAuthenticated ? (
               <>
-                <Nav>
+                <Nav activeKey={window.location.pathname}>
                   <Nav.Link as={Link} to="/myguitars">
                     My Guitars
                   </Nav.Link>
@@ -82,7 +82,7 @@ function App() {
                 </Modal>
               </>
             ) : (
-              <Nav className="ml-auto">
+              <Nav activeKey={window.location.pathname} className="ml-auto">
                 <Nav.Link as={Link} to="/signup">
                   Signup
                 </Nav.Link>

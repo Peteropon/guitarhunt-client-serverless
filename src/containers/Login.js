@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import "./Login.css";
 import { Auth } from "aws-amplify";
 import { useAppContext } from "../libs/contextLib";
@@ -66,6 +67,7 @@ export default function Login() {
             }}
           />
         </Form.Group>
+        <Link to="/login/reset">Forgot password?</Link>
         <Button
           block
           disabled={isLoading || !validateForm()}
