@@ -2,14 +2,9 @@ import React, { useRef, useState, useEffect } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import { API, Storage } from "aws-amplify";
 import { onError } from "../libs/errorLib";
-import {
-  FormGroup,
-  FormControl,
-  FormLabel,
-  Form,
-  Modal,
-  Button,
-} from "react-bootstrap";
+import Form from "react-bootstrap/Form";
+import Modal from "react-bootstrap/Modal";
+import Button from "react-bootstrap/Button";
 import LoaderButton from "../components/LoaderButton";
 import config from "../config";
 import { s3Delete, s3Upload } from "../libs/awsLib";
@@ -124,28 +119,39 @@ export default function EditGuitar() {
       <h2>Edit your guitar</h2>
       {guitar && (
         <Form onSubmit={handleSubmit}>
-          <FormGroup controlId="title">
-            <FormLabel>Title</FormLabel>
-            <FormControl
+          <Form.Group controlId="title">
+            <Form.Label>Title</Form.Label>
+            <Form.Control
               autoFocus
               value={guitar.title}
               type="text"
               onChange={(e) => setGuitar({ ...guitar, title: e.target.value })}
             />
-          </FormGroup>
-          <FormGroup controlId="description">
-            <FormLabel>Description</FormLabel>
-            <FormControl
+          </Form.Group>
+          <Form.Group controlId="description">
+            <Form.Label>Description</Form.Label>
+            <Form.Control
               value={guitar.description}
-              type="textarea"
+              as="textarea"
               onChange={(e) =>
                 setGuitar({ ...guitar, description: e.target.value })
               }
             />
-          </FormGroup>
+          </Form.Group>
+          <Form.Group>
+            <Form.Label>Url</Form.Label>
+            <Form.Control
+              value={guitar.urlLink || ""}
+              type="text"
+              onChange={(e) =>
+                setGuitar({ ...guitar, urlLink: e.target.value })
+              }
+            />
+          </Form.Group>
+
           {guitar.attachment && (
-            <FormGroup>
-              <FormLabel>Attachment</FormLabel>
+            <Form.Group>
+              <Form.Label>Attachment</Form.Label>
               <Form.File>
                 <a
                   target="_blank"
@@ -155,12 +161,12 @@ export default function EditGuitar() {
                   {formatFilename(guitar.attachment)}
                 </a>
               </Form.File>
-            </FormGroup>
+            </Form.Group>
           )}
-          <FormGroup controlId="file">
-            {!guitar.attachment && <FormLabel>Attachment</FormLabel>}
+          <Form.Group controlId="file">
+            {!guitar.attachment && <Form.Label>Attachment</Form.Label>}
             <Form.File onChange={handleFileChange} />
-          </FormGroup>
+          </Form.Group>
           <LoaderButton
             block
             type="submit"

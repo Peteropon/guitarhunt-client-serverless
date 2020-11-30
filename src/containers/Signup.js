@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-import { FormGroup, FormControl, FormLabel, Form } from "react-bootstrap";
+import Form from "react-bootstrap/Form";
 import { Auth } from "aws-amplify";
 import LoaderButton from "../components/LoaderButton";
 import { useAppContext } from "../libs/contextLib";
@@ -71,17 +71,17 @@ export default function Signup() {
 
   function renderConfirmationForm() {
     return (
-      <form onSubmit={handleConfirmationSubmit}>
-        <FormGroup controlId="confirmationCode">
-          <FormLabel>Confirmation Code</FormLabel>
-          <FormControl
+      <Form onSubmit={handleConfirmationSubmit}>
+        <Form.Group controlId="confirmationCode">
+          <Form.Label>Confirmation Code</Form.Label>
+          <Form.Control
             autoFocus
             type="tel"
             onChange={handleFieldChange}
             value={fields.confirmationCode}
           />
           <p>Please check your email for the code.</p>
-        </FormGroup>
+        </Form.Group>
         <LoaderButton
           block
           type="submit"
@@ -90,25 +90,25 @@ export default function Signup() {
         >
           Verify
         </LoaderButton>
-      </form>
+      </Form>
     );
   }
 
   function renderForm() {
     return (
-      <form onSubmit={handleSubmit}>
-        <FormGroup controlId="email">
-          <FormLabel>Email</FormLabel>
-          <FormControl
+      <Form onSubmit={handleSubmit}>
+        <Form.Group controlId="email">
+          <Form.Label>Email</Form.Label>
+          <Form.Control
             autoFocus
             type="email"
             value={fields.email}
             onChange={handleFieldChange}
           />
-        </FormGroup>
-        <FormGroup controlId="password">
-          <FormLabel>Password</FormLabel>
-          <FormControl
+        </Form.Group>
+        <Form.Group controlId="password">
+          <Form.Label>Password</Form.Label>
+          <Form.Control
             type="password"
             value={fields.password}
             onChange={handleFieldChange}
@@ -117,15 +117,15 @@ export default function Signup() {
             The password needs to have numbers, special characters and both
             upper and lowercase letters. Minimum 8 characters.
           </Form.Text>
-        </FormGroup>
-        <FormGroup controlId="confirmPassword">
-          <FormLabel>Confirm Password</FormLabel>
-          <FormControl
+        </Form.Group>
+        <Form.Group controlId="confirmPassword">
+          <Form.Label>Confirm Password</Form.Label>
+          <Form.Control
             type="password"
             onChange={handleFieldChange}
             value={fields.confirmPassword}
           />
-        </FormGroup>
+        </Form.Group>
         <LoaderButton
           block
           type="submit"
@@ -134,7 +134,7 @@ export default function Signup() {
         >
           Signup
         </LoaderButton>
-      </form>
+      </Form>
     );
   }
 

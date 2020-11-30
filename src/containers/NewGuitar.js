@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { FormGroup, FormControl, FormLabel, Form } from "react-bootstrap";
+import Form from "react-bootstrap/Form";
 import LoaderButton from "../components/LoaderButton";
 import { onError } from "../libs/errorLib";
 import { API } from "aws-amplify";
@@ -14,7 +14,7 @@ export default function NewGuitar() {
   const history = useHistory();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [url, setUrl] = useState("");
+  const [urlLink, setUrlLink] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
   function validateForm() {
@@ -41,7 +41,7 @@ export default function NewGuitar() {
     try {
       const attachment = file.current ? await s3Upload(file.current) : null;
 
-      await createGuitar({ title, description, url, attachment });
+      await createGuitar({ title, description, urlLink, attachment });
       toast.success("Your post has been successfully created");
       history.push("/");
     } catch (e) {
@@ -59,40 +59,40 @@ export default function NewGuitar() {
   return (
     <div className="NewGuitar">
       <h2>Create your guitar</h2>
-      <form onSubmit={handleSubmit}>
-        <FormGroup controlId="title">
-          <FormLabel>Title</FormLabel>
-          <FormControl
+      <Form onSubmit={handleSubmit}>
+        <Form.Group controlId="title">
+          <Form.Label>Title</Form.Label>
+          <Form.Control
             autoFocus
             value={title}
             type="text"
             onChange={(e) => setTitle(e.target.value)}
           />
-        </FormGroup>
-        <FormGroup controlId="description">
-          <FormLabel>Description</FormLabel>
-          <FormControl
+        </Form.Group>
+        <Form.Group controlId="description">
+          <Form.Label>Description</Form.Label>
+          <Form.Control
             value={description}
-            componentclass="textarea"
+            as="textarea"
             onChange={(e) => setDescription(e.target.value)}
           />
-        </FormGroup>
-        <FormGroup controlId="url">
-          <FormLabel>Url</FormLabel>
-          <FormControl
-            value={url}
-            componentclass="text"
+        </Form.Group>
+        <Form.Group controlId="urlLink">
+          <Form.Label>Url</Form.Label>
+          <Form.Control
+            value={urlLink}
+            type="text"
             aria-describedby="helpText"
-            onChange={(e) => setUrl(e.target.value)}
+            onChange={(e) => setUrlLink(e.target.value)}
           />
           <Form.Text id="helpText" muted>
             Make sure you provide a valid url link.
           </Form.Text>
-        </FormGroup>
-        <FormGroup controlId="file">
-          <FormLabel>Attachment</FormLabel>
-          <FormControl onChange={handleFileChange} type="file" />
-        </FormGroup>
+        </Form.Group>
+        <Form.Group controlId="file">
+          <Form.Label>Attachment</Form.Label>
+          <Form.Control multiple onChange={handleFileChange} type="file" />
+        </Form.Group>
         <LoaderButton
           block
           type="submit"
@@ -102,7 +102,7 @@ export default function NewGuitar() {
         >
           Create
         </LoaderButton>
-      </form>
+      </Form>
     </div>
   );
 }
