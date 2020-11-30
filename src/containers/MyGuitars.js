@@ -5,6 +5,7 @@ import Spinner from "../components/Spinner";
 import { onError } from "../libs/errorLib";
 import { Link } from "react-router-dom";
 import Jdenticon from "react-jdenticon";
+import { FaGuitar } from "react-icons/fa";
 
 export default function MyGuitars() {
   const [myGuitars, setMyGuitars] = useState([]);
@@ -65,6 +66,7 @@ export default function MyGuitars() {
     <div>
       <h2>My Guitars</h2>
       <Button as={Link} to="/newguitar" className="m-3" variant="outline-dark">
+        <FaGuitar className="mr-2" />
         Add a Guitar
       </Button>
       {isLoading ? (
