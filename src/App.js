@@ -6,6 +6,7 @@ import { AppContext } from "./libs/contextLib";
 import { Auth } from "aws-amplify";
 import { onError } from "./libs/errorLib";
 import { toast, ToastContainer } from "react-toastify";
+import Footer from "./components/Footer";
 import ErrorBoundary from "./components/ErrorBoundary";
 import "react-toastify/dist/ReactToastify.css";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -101,6 +102,7 @@ function App() {
             <ToastContainer autoClose={2500} hideProgressBar />
           </AppContext.Provider>
         </ErrorBoundary>
+        <Footer></Footer>
       </div>
     )
   );
