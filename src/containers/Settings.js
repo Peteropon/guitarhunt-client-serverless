@@ -7,6 +7,7 @@ import { Elements, StripeProvider } from "react-stripe-elements";
 import BillingForm from "../components/BillingForm";
 import "./Settings.css";
 import { toast } from "react-toastify";
+import { Jumbotron } from "react-bootstrap";
 
 export default function Settings() {
   const history = useHistory();
@@ -47,6 +48,10 @@ export default function Settings() {
 
   return (
     <div className="Settings">
+      <Jumbotron>
+        Here you can choose the amount of posts you want to do. (Don't worry
+        this won't charge you for real)
+      </Jumbotron>
       <StripeProvider stripe={stripe}>
         <Elements
           fonts={[
