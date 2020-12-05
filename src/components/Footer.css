@@ -1,4 +1,4 @@
-.footer {
+footer {
   margin-top: 1rem;
   padding: 1rem;
   background-color: rgba(245, 135, 208, 0.562);
@@ -6,12 +6,12 @@
   width: 100%;
 }
 
-.footer p {
+footer p {
   font-style: oblique;
   font-weight: lighter;
   font-size: small;
 }
 
-.footer a > * {
+footer a > * {
   margin: 0 1.5em;
 }
