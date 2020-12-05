@@ -36,14 +36,22 @@ function BillingForm({ isLoading, onSubmit, ...props }) {
   return (
     <Form className="BillingForm" onSubmit={handleSubmitClick}>
       <Form.Group controlId="storage">
-        <Form.Label>Storage</Form.Label>
+        <Form.Label>Select Package</Form.Label>
         <Form.Control
-          min="0"
-          type="number"
+          as="select"
           value={fields.storage}
           onChange={handleFieldChange}
-          placeholder="Number of guitars to store"
-        />
+        >
+          <option aria-describedby="package1" value="10">
+            Up to 10 - 4$ per post
+          </option>
+          <option aria-describedby="package2" value="100">
+            Up to 100 - 2$ per post
+          </option>
+          <option aria-describedby="package3" value="101">
+            Unlimited - 1$ per post
+          </option>
+        </Form.Control>
       </Form.Group>
       <hr />
       <Form.Group controlId="name">
