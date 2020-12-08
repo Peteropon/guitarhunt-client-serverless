@@ -7,12 +7,20 @@ export default function Footer() {
   return (
     <Container fluid as="footer">
       <Row xs={2}>
-        <Col sm={{ order: 1 }} as="a" href="https://github.com/Peteropon">
+        <Col
+          sm={{ order: 1 }}
+          as="a"
+          target="_blank"
+          rel="noopener noreferrer"
+          href="https://github.com/Peteropon"
+        >
           <FaGithub size="2em" />
         </Col>
         <Col
           sm={{ order: 3 }}
           as="a"
+          target="_blank"
+          rel="noopener noreferrer"
           href="https://www.linkedin.com/in/petros-tsavdaridis-a8575059/"
         >
           <FaLinkedin size="2em" />
