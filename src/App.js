@@ -17,6 +17,7 @@ function App() {
   const [isAuthenticating, setIsAuthenticating] = useState(true);
   const [isAuthenticated, userHasAuthenticated] = useState(false);
   const [show, setShow] = useState(false);
+  const [userInfo, setUserInfo] = useState("");
 
   const handleShowModal = () => setShow(true);
   const handleCloseModal = () => setShow(false);
@@ -28,6 +29,8 @@ function App() {
   async function onLoad() {
     try {
       await Auth.currentSession();
+      const info = await Auth.currentUserInfo();
+      setUserInfo(info.attributes.email);
       userHasAuthenticated(true);
     } catch (e) {
       if (e !== "No current user") {
@@ -41,69 +44,73 @@ function App() {
   async function handleLogout() {
     await Auth.signOut();
     userHasAuthenticated(false);
+    setUserInfo("");
     toast.info("You have logged out");
     history.push("/login");
   }
 
   return (
     !isAuthenticating && (
-      <div className="App">
-        <Navbar collapseOnSelect expand="md" bg="dark" variant="dark">
-          <Navbar.Brand as={Link} to="/">
-            Home
-          </Navbar.Brand>
-          <Navbar.Toggle />{" "}
-          <Navbar.Collapse id="responsive-navbar-nav">
-            {isAuthenticated ? (
-              <>
-                <Nav activeKey={window.location.pathname}>
-                  <Nav.Link as={Link} to="/myguitars">
-                    My Guitars
+      <>
+        <div className="App">
+          <Navbar collapseOnSelect expand="md" bg="dark" variant="dark">
+            <Navbar.Brand as={Link} to="/">
+              Home
+            </Navbar.Brand>
+            <Navbar.Toggle />{" "}
+            <Navbar.Collapse>
+              {isAuthenticated ? (
+                <>
+                  <Nav activeKey={window.location.pathname}>
+                    <Nav.Link as={Link} to="/myguitars">
+                      My Guitars
+                    </Nav.Link>
+                  </Nav>
+                  <Nav className="ml-auto">
+                    <Navbar.Text>Signed in as: {userInfo} | </Navbar.Text>
+                    <Nav.Link as={Link} to="/settings">
+                      Settings
+                    </Nav.Link>
+                    <Nav.Link onClick={handleShowModal}>Logout</Nav.Link>
+                  </Nav>
+                  <Modal show={show} onHide={handleCloseModal}>
+                    <Modal.Header closeButton>
+                      <Modal.Title>Signing out</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>Are you sure you want to sign out?</Modal.Body>
+                    <Modal.Footer>
+                      <Button variant="secondary" onClick={handleCloseModal}>
+                        Nah, forget it!
+                      </Button>
+                      <Button variant="primary" onClick={handleLogout}>
+                        Yes, I'm sure!
+                      </Button>
+                    </Modal.Footer>
+                  </Modal>
+                </>
+              ) : (
+                <Nav activeKey={window.location.pathname} className="ml-auto">
+                  <Nav.Link as={Link} to="/signup">
+                    Signup
+                  </Nav.Link>
+                  <Nav.Link as={Link} to="/login">
+                    Login
                   </Nav.Link>
                 </Nav>
-                <Nav className="ml-auto">
-                  <Nav.Link as={Link} to="/settings">
-                    Settings
-                  </Nav.Link>
-                  <Nav.Link onClick={handleShowModal}>Logout</Nav.Link>
-                </Nav>
-                <Modal show={show} onHide={handleCloseModal}>
-                  <Modal.Header closeButton>
-                    <Modal.Title>Signing out</Modal.Title>
-                  </Modal.Header>
-                  <Modal.Body>Are you sure you want to sign out?</Modal.Body>
-                  <Modal.Footer>
-                    <Button variant="secondary" onClick={handleCloseModal}>
-                      Nah, forget it!
-                    </Button>
-                    <Button variant="primary" onClick={handleLogout}>
-                      Yes, I'm sure!
-                    </Button>
-                  </Modal.Footer>
-                </Modal>
-              </>
-            ) : (
-              <Nav activeKey={window.location.pathname} className="ml-auto">
-                <Nav.Link as={Link} to="/signup">
-                  Signup
-                </Nav.Link>
-                <Nav.Link as={Link} to="/login">
-                  Login
-                </Nav.Link>
-              </Nav>
-            )}
-          </Navbar.Collapse>
-        </Navbar>
-        <ErrorBoundary>
-          <AppContext.Provider
-            value={{ isAuthenticated, userHasAuthenticated }}
-          >
-            <Routes />
-            <ToastContainer autoClose={2500} hideProgressBar />
-          </AppContext.Provider>
-        </ErrorBoundary>
+              )}
+            </Navbar.Collapse>
+          </Navbar>
+          <ErrorBoundary>
+            <AppContext.Provider
+              value={{ isAuthenticated, userHasAuthenticated }}
+            >
+              <Routes />
+              <ToastContainer autoClose={2500} hideProgressBar />
+            </AppContext.Provider>
+          </ErrorBoundary>
+        </div>
         <Footer></Footer>
-      </div>
+      </>
     )
   );
 }

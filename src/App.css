@@ -1,8 +1,6 @@
-.App {
-  max-width: 1000px;
-  margin: 0 auto;
+.App > * {
+  padding: 1em;
 }
-
 .App .navbar-brand {
   font-weight: bold;
 }
