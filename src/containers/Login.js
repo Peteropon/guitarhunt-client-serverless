@@ -9,9 +9,10 @@ import { onError } from "../libs/errorLib";
 
 export default function Login() {
   const { userHasAuthenticated } = useAppContext();
+  const { setUserName } = useAppContext();
   const [isLoading, setLoading] = useState(false);
   const [validated, setValidated] = useState(false);
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   async function handleSubmit(event) {
@@ -26,9 +27,10 @@ export default function Login() {
     setValidated(true);
     setLoading(true);
     try {
-      await Auth.signIn(email, password);
+      await Auth.signIn(username, password);
       userHasAuthenticated(true);
       toast.success("You have successfully logged in");
+      setUserName(username);
     } catch (e) {
       onError(e);
       setLoading(false);
@@ -36,24 +38,24 @@ export default function Login() {
   }
 
   function validateForm() {
-    return email.length > 0 && password.length > 0;
+    return username.length > 0 && password.length > 0;
   }
 
   return (
     <div className="Login">
       <Form noValidate validated={validated} onSubmit={handleSubmit}>
-        <Form.Group controlId="formEmail">
-          <Form.Label>Email address</Form.Label>
+        <Form.Group controlId="formUsername">
+          <Form.Label>Username</Form.Label>
           <Form.Control
-            type="email"
+            type="username"
             autoFocus
             required
             onChange={(e) => {
-              setEmail(e.target.value);
+              setUsername(e.target.value);
             }}
           />
           <Form.Control.Feedback type="invalid">
-            Please provide a valid email.
+            Please provide a valid username.
           </Form.Control.Feedback>
         </Form.Group>
 
