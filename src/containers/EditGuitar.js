@@ -10,6 +10,7 @@ import config from "../config";
 import { s3Delete, s3Upload } from "../libs/awsLib";
 import "./EditGuitar.css";
 import { toast } from "react-toastify";
+import { useAppContext } from "../libs/contextLib";
 
 export default function EditGuitar() {
   const file = useRef(null);
@@ -19,13 +20,14 @@ export default function EditGuitar() {
   const [isLoading, setIsLoading] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const [show, setShow] = useState(false);
+  const { userName } = useAppContext();
 
   const handleShowModal = () => setShow(true);
   const handleCloseModal = () => setShow(false);
 
   useEffect(() => {
     function loadGuitar() {
-      return API.get("guitars", `/guitars/${id}`);
+      return API.get("guitars", `/guitars/${id}/${userName}`);
     }
 
     async function onLoad() {
@@ -43,7 +45,7 @@ export default function EditGuitar() {
     }
 
     onLoad();
-  }, [id]);
+  }, [id, userName]);
 
   function validateForm() {
     return guitar.title.length > 0 && guitar.description.length > 0;
@@ -58,7 +60,7 @@ export default function EditGuitar() {
   }
 
   function saveGuitar(guitar) {
-    return API.put("guitars", `/guitars/${id}`, {
+    return API.put("guitars", `/guitars/${id}/${userName}`, {
       body: guitar,
     });
   }
@@ -95,7 +97,7 @@ export default function EditGuitar() {
   }
 
   function deleteGuitar() {
-    return API.del("guitars", `/guitars/${id}`);
+    return API.del("guitars", `/guitars/${id}/${userName}`);
   }
 
   async function handleDelete(event) {
