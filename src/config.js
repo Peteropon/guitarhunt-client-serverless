@@ -22,17 +22,17 @@ const prod = {
     "pk_test_51HAjXmFeB5e0LAgRrdZV0ov4i9ALknBOHFxAtQ4wF1JqBpND4NVdrYoi3nPODfuGOnfwsINefjzanwQKUtOFxH9q00EAnIGj3t",
   s3: {
     REGION: "us-east-2",
-    BUCKET: "prod-guitars-infra-s3-uploads4f6eb0fd-mzjgtg6t33im",
+    BUCKET: "guitarhunt-uploads",
   },
   apiGateway: {
     REGION: "us-east-2",
-    URL: "https://cp0ivsc67f.execute-api.us-east-2.amazonaws.com/prod",
+    URL: "https://g0d1evazn7.execute-api.us-east-2.amazonaws.com/prod",
   },
   cognito: {
     REGION: "us-east-2",
-    USER_POOL_ID: "us-east-2_EiCMqtdu8",
-    APP_CLIENT_ID: "7rutrsuenlc2t9g09qbfdd8j2e",
-    IDENTITY_POOL_ID: "us-east-2:0a00c83f-1afc-491a-a645-58146663713b",
+    USER_POOL_ID: "us-east-2_RsPnMGpHB",
+    APP_CLIENT_ID: "6iqnj4sikodigi5enilqma459g",
+    IDENTITY_POOL_ID: "us-east-2:f108a6da-41b0-4afb-898c-0ce3deb8f5e3",
   },
 };
 
@@ -40,7 +40,6 @@ const prod = {
 const config = process.env.REACT_APP_STAGE === "prod" ? prod : dev;
 
 export default {
-  // Add common config values here
   MAX_ATTACHMENT_SIZE: 5000000,
   ...config,
 };
