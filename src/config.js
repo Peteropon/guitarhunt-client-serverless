@@ -3,7 +3,7 @@ const dev = {
     "pk_test_51HAjXmFeB5e0LAgRrdZV0ov4i9ALknBOHFxAtQ4wF1JqBpND4NVdrYoi3nPODfuGOnfwsINefjzanwQKUtOFxH9q00EAnIGj3t",
   s3: {
     REGION: "us-east-2",
-    BUCKET: "dev-guitars-infra-s3-uploads4f6eb0fd-1qougvponqzrj",
+    BUCKET: "guitarhunt-uploads",
   },
   apiGateway: {
     REGION: "us-east-2",
