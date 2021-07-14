@@ -11,20 +11,24 @@ import { toast } from "react-toastify";
 
 export default function Signup() {
   const [fields, handleFieldChange] = useFormFields({
+    username: "",
     email: "",
     password: "",
+    name: "",
     confirmPassword: "",
     confirmationCode: "",
   });
   const history = useHistory();
   const [newUser, setNewUser] = useState(null);
-  const { userHasAuthenticated } = useAppContext();
+  const { userHasAuthenticated, setUserName } = useAppContext();
   const [isLoading, setIsLoading] = useState(false);
 
   function validateForm() {
     return (
+      fields.username.length > 0 &&
       fields.email.length > 0 &&
       fields.password.length > 0 &&
+      fields.name.length > 0 &&
       fields.password === fields.confirmPassword
     );
   }
@@ -40,8 +44,12 @@ export default function Signup() {
 
     try {
       const newUser = await Auth.signUp({
-        username: fields.email,
+        username: fields.username,
         password: fields.password,
+        attributes: {
+          email: fields.email,
+          name: fields.name,
+        },
       });
       setIsLoading(false);
       setNewUser(newUser);
@@ -57,11 +65,12 @@ export default function Signup() {
     setIsLoading(true);
 
     try {
-      await Auth.confirmSignUp(fields.email, fields.confirmationCode);
-      await Auth.signIn(fields.email, fields.password);
+      await Auth.confirmSignUp(fields.username, fields.confirmationCode);
+      await Auth.signIn(fields.username, fields.password);
 
       userHasAuthenticated(true);
       toast.success("You have successfully signed up");
+      setUserName(fields.username);
       history.push("/");
     } catch (e) {
       onError(e);
@@ -97,12 +106,28 @@ export default function Signup() {
   function renderForm() {
     return (
       <Form onSubmit={handleSubmit}>
+        <Form.Group controlId="username">
+          <Form.Label>Username</Form.Label>
+          <Form.Control
+            autoFocus
+            type="text"
+            value={fields.username}
+            onChange={handleFieldChange}
+          />
+        </Form.Group>
         <Form.Group controlId="email">
           <Form.Label>Email</Form.Label>
           <Form.Control
-            autoFocus
             type="email"
             value={fields.email}
+            onChange={handleFieldChange}
+          />
+        </Form.Group>
+        <Form.Group controlId="name">
+          <Form.Label>Name</Form.Label>
+          <Form.Control
+            type="name"
+            value={fields.name}
             onChange={handleFieldChange}
           />
         </Form.Group>
