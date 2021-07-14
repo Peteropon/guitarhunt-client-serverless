@@ -41,7 +41,7 @@ export default function Home() {
   }, [isAuthenticated]);
 
   function loadGuitars() {
-    return API.get("guitars", "/rating");
+    return API.get("guitars", "/allguitars");
   }
 
   const handleShowModal = () => setShow(true);
@@ -50,42 +50,24 @@ export default function Home() {
   function renderGuitarsList(guitars) {
     return guitars.map((guitar) => {
       return (
-        <>
-          <OverlayTrigger
-            placement="top"
-            overlay={
-              <Tooltip>Click to see more details and rate this item.</Tooltip>
-            }
-          >
-            <ListGroup.Item
-              key={guitar.guitarId}
-              action
-              onClick={handleShowModal}
-            >
-              <div className="media pt-2">
-                <Jdenticon size="40" value={guitar.userId} />
-                <p className="ml-2">
-                  <strong>{guitar.title}</strong>
-                </p>
-                <p className="ml-auto">Votes: {guitar.votes}</p>
-              </div>
-            </ListGroup.Item>
-          </OverlayTrigger>
-          <Modal show={show} onHide={handleCloseModal}>
-            <Modal.Header closeButton>
-              <Modal.Title>Patience...</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              We know you look forward to that but this feature is not ready
-              yet. We're working on it :)
-            </Modal.Body>
-            <Modal.Footer>
-              <Button variant="secondary" onClick={handleCloseModal}>
-                Ok, I'll be patient!
-              </Button>
-            </Modal.Footer>
-          </Modal>
-        </>
+        <OverlayTrigger
+          key={guitar.guitarId}
+          placement="top"
+          overlay={
+            <Tooltip>Click to see more details and rate this item.</Tooltip>
+          }
+        >
+          <ListGroup.Item action onClick={handleShowModal}>
+            <div className="media pt-2">
+              <Jdenticon size="40" value={guitar.guitarId} />
+              <p className="ml-2">
+                <strong>{guitar.title}</strong>
+              </p>
+              <p className="ml-auto">Uploaded by {guitar.username}</p>
+              <p className="ml-auto">Votes: {guitar.votes}</p>
+            </div>
+          </ListGroup.Item>
+        </OverlayTrigger>
       );
     });
   }
@@ -119,6 +101,20 @@ export default function Home() {
           </p>
         </Jumbotron>
       )}
+      <Modal show={show} onHide={handleCloseModal}>
+        <Modal.Header closeButton>
+          <Modal.Title>Patience...</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          We know you look forward to that but this feature is not ready yet.
+          We're working on it :)
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleCloseModal}>
+            Ok, I'll be patient!
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 }
