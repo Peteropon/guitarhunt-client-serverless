@@ -8,6 +8,7 @@ import config from "../config";
 import "./NewGuitar.css";
 import { toast } from "react-toastify";
 import { s3Upload } from "../libs/awsLib";
+import { useAppContext } from "../libs/contextLib";
 
 export default function NewGuitar() {
   const file = useRef(null);
@@ -16,6 +17,7 @@ export default function NewGuitar() {
   const [description, setDescription] = useState("");
   const [urlLink, setUrlLink] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const { userName } = useAppContext();
 
   function validateForm() {
     return title.length > 0 && description.length > 0;
@@ -41,7 +43,13 @@ export default function NewGuitar() {
     try {
       const attachment = file.current ? await s3Upload(file.current) : null;
 
-      await createGuitar({ title, description, urlLink, attachment });
+      await createGuitar({
+        username: userName,
+        title,
+        description,
+        urlLink,
+        attachment,
+      });
       toast.success("Your post has been successfully created");
       history.push("/");
     } catch (e) {

@@ -6,10 +6,12 @@ import { onError } from "../libs/errorLib";
 import { Link } from "react-router-dom";
 import Jdenticon from "react-jdenticon";
 import { FaGuitar } from "react-icons/fa";
+import { useAppContext } from "../libs/contextLib";
 
 export default function MyGuitars() {
   const [myGuitars, setMyGuitars] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const { userName } = useAppContext();
 
   useEffect(() => {
     async function onLoad() {
@@ -24,11 +26,11 @@ export default function MyGuitars() {
     }
 
     onLoad();
-  }, []);
 
-  function loadMyGuitars() {
-    return API.get("guitars", "/guitars");
-  }
+    function loadMyGuitars() {
+      return API.get("guitars", `/guitars/users/${userName}`);
+    }
+  }, [userName]);
 
   function renderList(guitars) {
     return (
@@ -36,11 +38,11 @@ export default function MyGuitars() {
         {guitars.map((guitar) => {
           return (
             <OverlayTrigger
+              key={guitar.guitarId}
               placement="top"
               overlay={<Tooltip>Click to edit this item.</Tooltip>}
             >
               <ListGroup.Item
-                key={guitar.guitarId}
                 action
                 as={Link}
                 to={`/guitars/${guitar.guitarId}`}
