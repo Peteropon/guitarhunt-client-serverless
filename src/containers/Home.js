@@ -92,7 +92,7 @@ export default function Home() {
                 {guitar.title}
               </Accordion.Toggle>
               <Accordion.Collapse eventKey={guitar.guitarId}>
-                <Card.Body className="justify-content-center">
+                <Card.Body className="text-center">
                   <Jdenticon size="40" value={guitar.guitarId} />
                   {guitar.description}
                   <p>Uploaded by {guitar.username}</p>
