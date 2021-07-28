@@ -15,6 +15,7 @@ import Spinner from "../components/Spinner";
 import "./Home.css";
 import { Link } from "react-router-dom";
 import Jdenticon from "react-jdenticon";
+import { toast } from "react-toastify";
 
 export default function Home() {
   const [guitars, setGuitars] = useState([]);
@@ -59,6 +60,9 @@ export default function Home() {
     try {
       const response = await voteUpGuitar(guitarId, username, votes);
       if (response.status) {
+        toast.success(
+          "Your vote has been registered successfully. Thank you for voting!"
+        );
         try {
           const guitars = await loadGuitars();
           setGuitars(
