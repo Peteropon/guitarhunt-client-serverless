@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import {
+  Accordion,
   Button,
+  Card,
   Jumbotron,
   ListGroup,
-  Modal,
   OverlayTrigger,
   Tooltip,
 } from "react-bootstrap";
@@ -19,7 +20,6 @@ export default function Home() {
   const [guitars, setGuitars] = useState([]);
   const { isAuthenticated } = useAppContext();
   const [isLoading, setIsLoading] = useState(true);
-  const [show, setShow] = useState(false);
 
   useEffect(() => {
     async function onLoad() {
@@ -29,7 +29,7 @@ export default function Home() {
 
       try {
         const guitars = await loadGuitars();
-        setGuitars(guitars);
+        setGuitars(guitars.sort((a, b) => b.votes - a.votes));
       } catch (e) {
         onError(e);
       }
@@ -44,8 +44,29 @@ export default function Home() {
     return API.get("guitars", "/allguitars");
   }
 
-  const handleShowModal = () => setShow(true);
-  const handleCloseModal = () => setShow(false);
+  function voteUpGuitar(guitarId, username, votes) {
+    return API.put("guitars", `/guitars/votes/${guitarId}/${username}`, {
+      body: { votes },
+    });
+  }
+
+  async function handleVoteUp({ guitarId, username, votes }) {
+    setIsLoading(true);
+    try {
+      const response = await voteUpGuitar(guitarId, username, votes);
+      if (response.status) {
+        try {
+          const guitars = await loadGuitars();
+          setGuitars(guitars.sort((a, b) => b.votes - a.votes));
+        } catch (error) {
+          onError(error);
+        }
+      }
+    } catch (error) {
+      onError(error);
+    }
+    setIsLoading(false);
+  }
 
   function renderGuitarsList(guitars) {
     return guitars.map((guitar) => {
@@ -57,16 +78,28 @@ export default function Home() {
             <Tooltip>Click to see more details and rate this item.</Tooltip>
           }
         >
-          <ListGroup.Item action onClick={handleShowModal}>
-            <div className="media pt-2">
-              <Jdenticon size="40" value={guitar.guitarId} />
-              <p className="ml-2">
-                <strong>{guitar.title}</strong>
-              </p>
-              <p className="ml-auto">Uploaded by {guitar.username}</p>
-              <p className="ml-auto">Votes: {guitar.votes}</p>
-            </div>
-          </ListGroup.Item>
+          <Accordion>
+            <Card>
+              <Accordion.Toggle as={Card.Header} eventKey={guitar.guitarId}>
+                {guitar.title}
+              </Accordion.Toggle>
+              <Accordion.Collapse eventKey={guitar.guitarId}>
+                <Card.Body className="justify-content-center">
+                  <Jdenticon size="40" value={guitar.guitarId} />
+                  {guitar.description}
+                  <p>Uploaded by {guitar.username}</p>
+                  <p>{guitar.urlLink}</p>
+                  <p>Votes: {guitar.votes}</p>
+                  <Button
+                    variant="primary"
+                    onClick={() => handleVoteUp(guitar)}
+                  >
+                    Vote Up
+                  </Button>
+                </Card.Body>
+              </Accordion.Collapse>
+            </Card>
+          </Accordion>
         </OverlayTrigger>
       );
     });
@@ -101,20 +134,6 @@ export default function Home() {
           </p>
         </Jumbotron>
       )}
-      <Modal show={show} onHide={handleCloseModal}>
-        <Modal.Header closeButton>
-          <Modal.Title>Patience...</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          We know you look forward to that but this feature is not ready yet.
-          We're working on it :)
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleCloseModal}>
-            Ok, I'll be patient!
-          </Button>
-        </Modal.Footer>
-      </Modal>
     </div>
   );
 }
