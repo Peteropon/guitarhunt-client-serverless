@@ -96,7 +96,13 @@ export default function Home() {
                   <Jdenticon size="40" value={guitar.guitarId} />
                   {guitar.description}
                   <p>Uploaded by {guitar.username}</p>
-                  <p>{guitar.urlLink}</p>
+                  <a
+                    href={guitar.urlLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {guitar.urlLink}
+                  </a>
                   <p>Votes: {guitar.votes}</p>
                   <Button
                     variant="primary"
