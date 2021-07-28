@@ -29,7 +29,11 @@ export default function Home() {
 
       try {
         const guitars = await loadGuitars();
-        setGuitars(guitars.sort((a, b) => b.votes - a.votes));
+        setGuitars(
+          guitars.sort((a, b) =>
+            a.votes === b.votes ? a.title > b.title : b.votes - a.votes
+          )
+        );
       } catch (e) {
         onError(e);
       }
@@ -57,7 +61,11 @@ export default function Home() {
       if (response.status) {
         try {
           const guitars = await loadGuitars();
-          setGuitars(guitars.sort((a, b) => b.votes - a.votes));
+          setGuitars(
+            guitars.sort((a, b) =>
+              a.votes === b.votes ? a.title > b.title : b.votes - a.votes
+            )
+          );
         } catch (error) {
           onError(error);
         }
